@@ -1,0 +1,9 @@
+En samling med scrapers för lunchrestaurangerna i Sundsvall med omnejd.
+
+Beroenden:
+----------
+PDFMiner
+simplejson
+
+Dessutom kommer inte alla att funka då de kräver datakällor som du inte har tillgång till.
+
