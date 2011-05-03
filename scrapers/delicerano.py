@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
+# You won't be able to run this locally since it requires the JSON store
+# for the Twitter-bot at http://twitter.com/#!/Delicerano
+
 import simplejson as json
 from datetime import date
 
