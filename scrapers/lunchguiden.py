@@ -24,8 +24,7 @@ def get_daily_specials():
 			# Return a list of all specials for the given restaurant by its link reference
 			div = soup.find("a", {"class": "ref", "name": r[1]})
 			return [li.text for li in div.parent.find("ul")]
-		d = {"name": r[0], "specials": specials()}
-		daily_specials.append(d)
+		daily_specials.append({"name": r[0], "specials": specials()})
 
 	return daily_specials
 
