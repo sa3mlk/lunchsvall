@@ -10,12 +10,10 @@ def get_daily_specials():
 	page = urlopen(URL)
 	soup = BeautifulSoup(page)
 
-	restaurants = []
-
-	menu = soup.find("div", id="menu")
-	for i in menu.findChildren("a", {"class": "block"}):
-		# Save the name of the place and the link reference
-		restaurants.append((i.text, i["href"][1:]))
+	restaurants = [
+		(i.text, i["href"][1:]) for i in
+		soup.find("div", id="menu").findChildren("a", {"class": "block"})
+	]
 
 	daily_specials = []
 
@@ -23,8 +21,13 @@ def get_daily_specials():
 		def specials():
 			# Return a list of all specials for the given restaurant by its link reference
 			div = soup.find("a", {"class": "ref", "name": r[1]})
-			return [li.text for li in div.parent.find("ul")]
-		daily_specials.append({"name": r[0], "specials": specials()})
+			ul = div.parent.find("ul")
+			# Return an empty list if there are no daily specials available, otherwise
+			# all <li> tags in the list
+			return [li.text for li in ul] if ul else []
+		s = specials()
+		if len(s):
+			daily_specials.append({"name": r[0], "specials": s})
 
 	return daily_specials
 
