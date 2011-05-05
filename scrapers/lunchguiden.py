@@ -10,10 +10,8 @@ def get_daily_specials():
 	page = urlopen(URL)
 	soup = BeautifulSoup(page)
 
-	restaurants = [
-		(i.text, i["href"][1:]) for i in
-		soup.find("div", id="menu").findChildren("a", {"class": "block"})
-	]
+	restaurants = [(i.text, i["href"][1:]) for i in
+		soup.find("div", id="menu").findChildren("a", {"class": "block"})]
 
 	daily_specials = []
 

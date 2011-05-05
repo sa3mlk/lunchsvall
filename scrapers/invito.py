@@ -26,8 +26,8 @@ def get_daily_specials():
 	td = parent.findChild("td", valign="top")
 
 	# Filter out the strings only
-	only_strings = filter(lambda x: isinstance(x, NavigableString), td.contents)
-	daily_specials["specials"] = [str(c) for c in only_strings]
+	daily_specials["specials"] = [str(c) for c in
+		filter(lambda x: isinstance(x, NavigableString), td.contents)]
 
 	return daily_specials
 
