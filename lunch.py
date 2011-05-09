@@ -28,7 +28,8 @@ def lunchsvall_app(environment, start_response):
 
 	status = "200 OK"
 	headers = [
-		("content-type", "text/plain"),
+		#("content-type", "text/plain"),
+		("content-type", "application/json"),
 		("content-length", str(len(ret)))
 	]
 

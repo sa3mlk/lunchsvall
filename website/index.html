@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Dagens lunch i Sundsvall</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('input.search').focus();
+
+	// TODO: Hur i helvete får jag fanskapet att ladda hem json-blobban från en URL istället?
+	var data_url = "2011-05-09.json";
+
+	$.ajax({
+		async: false,
+		dataType: "json",
+		url: data_url,
+		type: "GET",
+		success: function(data) {
+			$.each(data, function(i, n) {
+				var daily_specials = "";
+				$.each(n["specials"], function(j, m) {
+					daily_specials += m + "<br/>";
+				});
+				$("#daily_specials > tbody:last").append("<tr><td valign=\"top\">"+ n["name"] +"</td><td>" + daily_specials + "</td></tr>");
+			});
+		}
+	});
+
+	$('.search').keyup(function() {
+			var search = $(this).val();
+			$('#daily_specials tr').each(function() {
+				// Case-insensitive match
+				regexp = new RegExp(search, "i");
+				if (search.length == 0) {
+					$(this).show();
+				} else {
+					td = $(this).find('td');
+					if (td.html() != null) {
+						restaurant = td.eq(0).text();
+						daily = td.eq(1).text();
+						if (restaurant.search(regexp) != -1 ||
+							daily.search(regexp) != -1) {
+							$(this).show();
+						} else {
+							$(this).hide();
+						}
+					}
+				}
+			});
+		});
+});
+</script>
+
+<style type="text/css">
+	table {
+		font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+		font-size: 14px;
+		margin: 20px;
+		width: 800px;
+		text-align: left;
+		border-collapse: collapse;
+	}
+	th {
+		font-size: 14px;
+		font-weight: bold;
+		padding: 3px 8px;
+		color: #039;
+	}
+
+	td {
+		padding: 8px;
+		color: #000000;
+	}
+</style>
+
+</head>
+<body>
+
+<table>
+	<tr><td><h3>Vad är du sugen på idag då?</h3></td></tr>
+	<tr><td><strong>Filtrera </strong><input class="search" type="text"/> <small style="color: #888;">(t. ex. "bea")</small></td></tr>
+</table>
+
+<table id="daily_specials">
+	<thead>
+	<tr><th>Restaurang</th><th>Dagens</th></tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+</body>
+</html>
+
