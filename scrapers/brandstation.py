@@ -7,6 +7,7 @@
 from urllib2 import urlopen
 import sys
 import os
+import os.path
 from subprocess import Popen
 from datetime import date
 
@@ -19,18 +20,13 @@ def get_daily_specials():
 	daily_specials = {"name": "Brandstation", "specials": []}
 
 	try:
-		p = Popen([
-			"pdf2txt.py",
-			"-c",
-			"utf-8",
-			"-o",
-			"brandstation.txt",
-			"brandstation.pdf"],
-			shell=True
-		)
+		p = Popen("pdf2txt.py -c utf-8 -o brandstation.txt brandstation.pdf", shell=True)
 		os.waitpid(p.pid, 0)[1]
 	except OSError:
 		print "Seems like you don't have PDFMiner installed."
+		return daily_specials
+
+	if not os.path.isfile("brandstation.txt"):
 		return daily_specials
 
 	day_str = ""
