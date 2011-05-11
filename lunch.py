@@ -10,12 +10,17 @@ import scrapers
 PORT = 8000
 
 def lunchsvall_app(environment, start_response):
+	if environment["PATH_INFO"] != "/":
+		print "Ignoring:", environment["PATH_INFO"]
+		start_response("404 NOT FOUND", [("content-type", "text/plain")])
+		return [":-("]
+
 	d = date.today()
 	cached_file = "cache/%d-%02d-%02d.json" % (d.year, d.month, d.day)
 
 	ret = ""
 	if os.path.isfile(cached_file):
-		print "Returning cached file %s" % cached_file
+		#print "Returning cached file %s" % cached_file
 		with file(cached_file) as f:
 			ret = f.read()
 	else:
@@ -43,4 +48,5 @@ try:
 	httpd.serve_forever()
 except KeyboardInterrupt:
 	print "Aborting..."
+
 

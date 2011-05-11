@@ -9,8 +9,7 @@
 $(function() {
 	$('input.search').focus();
 
-	// TODO: Hur i helvete får jag fanskapet att ladda hem json-blobban från en URL istället?
-	var data_url = "2011-05-09.json";
+	var data_url = "get_json.php";
 
 	$.ajax({
 		async: false,
@@ -20,10 +19,10 @@ $(function() {
 		success: function(data) {
 			$.each(data, function(i, n) {
 				var daily_specials = "";
-				$.each(n["specials"], function(j, m) {
+				$.each(n.specials, function(j, m) {
 					daily_specials += m + "<br/>";
 				});
-				$("#daily_specials > tbody:last").append("<tr><td valign=\"top\">"+ n["name"] +"</td><td>" + daily_specials + "</td></tr>");
+				$("#daily_specials > tbody:last").append("<tr><td valign=\"top\"><strong>"+ n.name +"</strong></td><td>" + daily_specials + "</td></tr>");
 			});
 		}
 	});
@@ -32,16 +31,16 @@ $(function() {
 			var search = $(this).val();
 			$('#daily_specials tr').each(function() {
 				// Case-insensitive match
-				regexp = new RegExp(search, "i");
-				if (search.length == 0) {
+				var regexp = new RegExp(search, "i");
+				if (search.length === 0) {
 					$(this).show();
 				} else {
-					td = $(this).find('td');
-					if (td.html() != null) {
-						restaurant = td.eq(0).text();
-						daily = td.eq(1).text();
-						if (restaurant.search(regexp) != -1 ||
-							daily.search(regexp) != -1) {
+					var td = $(this).find('td');
+					if (td.html() !== null) {
+						var restaurant = td.eq(0).text();
+						var daily = td.eq(1).text();
+						if (restaurant.search(regexp) !== -1 ||
+							daily.search(regexp) !== -1) {
 							$(this).show();
 						} else {
 							$(this).hide();
@@ -58,17 +57,17 @@ $(function() {
 		font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 		font-size: 14px;
 		margin: 20px;
-		width: 800px;
 		text-align: left;
 		border-collapse: collapse;
+		width: 600px;
 	}
 	th {
-		font-size: 14px;
+		font-size: 16px;
 		font-weight: bold;
+		text-align: left;
 		padding: 3px 8px;
 		color: #039;
 	}
-
 	td {
 		padding: 8px;
 		color: #000000;
