@@ -1,36 +1,65 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
-# You won't be able to run this locally since it requires the JSON store
-# for the Twitter-bot at http://twitter.com/#!/Delicerano
-
-import simplejson as json
+from BeautifulSoup import BeautifulSoup, NavigableString
+from urllib2 import urlopen
 from datetime import date
+import re
 
-JSON_STORE = "/home/jonasg/code/delicerano/daily_specials"
+URL = "http://delicerano.se/Lunch.html";
 
-def get_daily_specials():
-	d = date.today()
-	daily_specials = {"name": u"Delicerano", "specials": []}
+def get_daily_specials(day=None):
+	page = urlopen(URL)
+	soup = BeautifulSoup(page)
+
+	daily_specials = {"name": "Delicerano", "specials": []}
+	if day == None:
+		day = date.today().weekday()
 
 	# No lunch on Saturday or Sunday
-	if d.weekday() == 5 or d.weekday() == 6:
+	if day == 5 or day == 6:
 		return daily_specials
 
-	year, week = d.isocalendar()[:2]
-	fn = "%s/%s-week%d.json" % (JSON_STORE, year, week)
-	with file(fn) as f:
-		weekly_menu = json.loads(f.read())
-	day_key = d.strftime("%A").lower()
+	day = [u"m&aring;ndag", u"tisdag", u"onsdag", u"torsdag", u"fredag"][day]
 
-	daily_specials["specials"].append(weekly_menu["specials"][day_key])
+	def fix_html(s):
+		# TODO: You might add more special html characters here
+		chars = [(u"&amp;", u"&"), (u"&nbsp;", u" "), (u"&auml;", u"å"),
+				 (u"&Auml;", u"Å"), (u"&ouml;", u"ö"), (u"&Ouml;", u"Ö"),
+				 (u"&aring;", u"ä"), (u"&Aring;", u"Ä"), (u"&eacute;", u"é"),
+				 (u"&egrave;", u"è")]
+		for html, char in chars:
+			s = s.replace(html, char)
+		return s
+
+	def add_missing_spaces(s):
+		# Ugly patch
+		if s.find("VECKANS MENY") != -1:
+			return ""
+		n = ""
+		for i, c in enumerate(s[0:-1]):
+			n += c
+			if s[i + 1].isupper() and c.islower():
+				n += " "
+		return n + s[-1]
+
+	def fix_string(s):
+		return add_missing_spaces(fix_html(s))
+
+	pattern = re.compile(day, re.IGNORECASE)
+	day = soup.find(lambda tag: tag.name == "h2" and pattern.match(tag.text))
+	# FIXME: Sometimes two or more dishes share the same <p> tag; split them on "%d kr" perhaps?
+	siblings = day.findNextSiblings(lambda t: t.name == "p" and len(t.text), limit=4)
+	daily_specials["specials"] = filter(lambda x: len(x), map(lambda x: fix_string(x.text.strip()), siblings))
+
 	return daily_specials
 
 def main():
-	d = get_daily_specials()
-	print d["name"].encode("UTF-8")
-	for c in d["specials"]:
-		print "  ", c.encode("UTF-8")
+	for day in range(5):
+		d = get_daily_specials(day)
+		print d["name"]
+		for c in d["specials"]:
+			print "  ", c
 
 if __name__ == "__main__":
 	main()
