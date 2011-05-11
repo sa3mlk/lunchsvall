@@ -5,6 +5,3 @@ Beroenden:
 BeautifulSoup
 PDFMiner
 simplejson
-
-Dessutom kommer inte alla att funka då de kräver datakällor som du inte har tillgång till.
-
