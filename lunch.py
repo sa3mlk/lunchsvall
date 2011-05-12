@@ -3,6 +3,7 @@
 
 from wsgiref.simple_server import make_server
 from datetime import date
+import os
 import os.path
 import simplejson as json
 import scrapers
@@ -17,6 +18,10 @@ def lunchsvall_app(environment, start_response):
 
 	d = date.today()
 	cached_file = "cache/%d-%02d-%02d.json" % (d.year, d.month, d.day)
+	cache_dir = os.path.dirname(cached_file)
+
+	if not os.path.exists(cache_dir):
+		os.makedirs(cache_dir)
 
 	ret = ""
 	if os.path.isfile(cached_file):
