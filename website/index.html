@@ -53,24 +53,40 @@ $(function() {
 </script>
 
 <style type="text/css">
+	body {
+		font-family: Helvetica, Arial;
+	}
 	table {
-		font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-		font-size: 14px;
-		margin: 20px;
+		font-size: 1.0em;
+		margin: 1.0em;
 		text-align: left;
 		border-collapse: collapse;
-		width: 600px;
+		width: 50.0em;
 	}
 	th {
-		font-size: 16px;
+		font-size: 1.2em;
 		font-weight: bold;
 		text-align: left;
-		padding: 3px 8px;
+		padding: 0.8em 0.8em 0.0em 0.8em;
 		color: #039;
 	}
 	td {
-		padding: 8px;
+		padding: 1.0em;
 		color: #000000;
+	}
+	h3 {
+		color: #000000;
+		font-size: 2.6em;
+		font-weight: bold;
+		margin-top: -0.1em;
+		letter-spacing: -0.05em;
+		margin-bottom: -0.1em;
+	}
+	.roundbox {
+		border-radius: 1.0em;
+		background-image: -moz-linear-gradient(top, rgba(252,252,252,0.5), rgba(247,247,247,0.5) 3%, rgba(242,242,242,0.5) 12%, rgba(217,217,217,0.5) 90%, rgba(191,191,191,0.5));
+		background-image: -webkit-gradient(linear, center top, center bottom, from(rgba(252,252,252,0.5)), to(rgba(191,191,191,0.5)), color-stop(3%, rgba(247,247,247,0.5)), color-stop(12%, rgba(242,242,242,0.5)), color-stop(90%, rgba(217,217,217,0.5)));
+		box-shadow: 0.0em 0.2em 0.5em rgba(0,0,0,0,0.74);
 	}
 </style>
 
@@ -78,11 +94,11 @@ $(function() {
 <body>
 
 <table>
-	<tr><td><h3>Vad är du sugen på idag då?</h3></td></tr>
-	<tr><td><strong>Filtrera </strong><input class="search" type="text"/> <small style="color: #888;">(t. ex. "bea")</small></td></tr>
+	<tr><td><h3>Jaha, vad är du sugen på idag då?</h3></td></tr>
+	<tr><td><strong>Filtrera </strong><input class="search" type="text"/> <small style="color: #888;">(t. ex. korv eller din favoritrestaurang)</small></td></tr>
 </table>
 
-<table id="daily_specials">
+<table id="daily_specials" class="roundbox" width="100%">
 	<thead>
 	<tr><th>Restaurang</th><th>Dagens</th></tr>
 	</thead>
