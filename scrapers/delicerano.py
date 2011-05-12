@@ -24,9 +24,9 @@ def get_daily_specials(day=None):
 
 	def fix_html(s):
 		# TODO: You might add more special html characters here
-		chars = [(u"&amp;", u"&"), (u"&nbsp;", u" "), (u"&auml;", u"å"),
-				 (u"&Auml;", u"Å"), (u"&ouml;", u"ö"), (u"&Ouml;", u"Ö"),
-				 (u"&aring;", u"ä"), (u"&Aring;", u"Ä"), (u"&eacute;", u"é"),
+		chars = [(u"&amp;", u"&"), (u"&nbsp;", u" "), (u"&auml;", u"ä"),
+				 (u"&Auml;", u"Ä"), (u"&ouml;", u"ö"), (u"&Ouml;", u"Ö"),
+				 (u"&aring;", u"å"), (u"&Aring;", u"Å"), (u"&eacute;", u"é"),
 				 (u"&egrave;", u"è")]
 		for html, char in chars:
 			s = s.replace(html, char)
