@@ -10,6 +10,7 @@ URL = "http://www.max.se/maten.aspx"
 def get_daily_specials():
 	page = urlopen(URL)
 	soup = BeautifulSoup(page)
+	page.close()
 
 	daily_specials = {"name": "mAx", "specials": []}
 	day = date.today().weekday()

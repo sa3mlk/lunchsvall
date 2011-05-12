@@ -19,6 +19,7 @@ def get_daily_specials():
 
 	page = urlopen("http://bryners.se")
 	soup = BeautifulSoup(page)
+	page.close()
 
 	all_fonts = soup.findAll("font", {"color": "#000000"})
 	index = 0

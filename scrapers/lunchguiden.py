@@ -9,6 +9,7 @@ URL = "http://kampanjsajt.nu/st/lunchguiden/"
 def get_daily_specials():
 	page = urlopen(URL)
 	soup = BeautifulSoup(page)
+	page.close()
 
 	restaurants = [(i.text, i["href"][1:]) for i in
 		soup.find("div", id="menu").findChildren("a", {"class": "block"})]

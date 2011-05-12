@@ -11,6 +11,7 @@ URL = "http://delicerano.se/Lunch.html";
 def get_daily_specials(day=None):
 	page = urlopen(URL)
 	soup = BeautifulSoup(page)
+	page.close()
 
 	daily_specials = {"name": "Delicerano", "specials": []}
 	if day == None:

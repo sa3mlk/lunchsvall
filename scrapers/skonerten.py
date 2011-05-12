@@ -10,6 +10,7 @@ URL = "http://www.skonerten.se/"
 def get_daily_specials():
 	page = urlopen(URL)
 	soup = BeautifulSoup(page)
+	page.close()
 
 	daily_specials = {"name": "Skonerten", "specials": []}
 	day = date.today().weekday()
