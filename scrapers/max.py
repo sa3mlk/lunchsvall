@@ -25,7 +25,7 @@ def get_daily_specials():
 	for td in table.findAll("td"):
 		today.append(filter(lambda x: isinstance(x, NavigableString), td.contents)[day])
 
-	daily_specials["specials"].append(today[1])
+	daily_specials["specials"].append(unicode(today[1].replace(u"Ã¥", u"å")))
 	return daily_specials
 
 def main():
