@@ -1,0 +1,7 @@
+REQ = Request
+BUG = Bug
+--------------------
+
+REQ: Implement a scraper for Restaurang Gårdshuset at http://www.sidsjohotell.se/restaurang-gardshuset/meny/
+BUG: Swedish characters are not converted correctly in scrapers/max.py
+
