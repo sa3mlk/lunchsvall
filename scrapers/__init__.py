@@ -2,6 +2,7 @@ import brandstation
 import bryners
 import delicerano
 import delinorr
+import gardshuset
 import invito
 import lunchguiden
 import max
@@ -9,10 +10,11 @@ import skonerten
 
 def get_daily_specials():
 	scrapers = [
+		delicerano,
 		brandstation,
 		bryners,
-		delicerano,
 		delinorr,
+		gardshuset,
 		invito,
 		lunchguiden,
 		max,
