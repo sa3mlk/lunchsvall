@@ -1,0 +1,55 @@
+body {
+	font-family: Helvetica, Arial;
+	background-color: #a0b0c0;
+}
+table {
+	font-size: 1.0em;
+	margin: 1.0em;
+	text-align: left;
+	border-collapse: collapse;
+	width: 50.0em;
+}
+th {
+	font-size: 1.2em;
+	font-weight: bold;
+	text-align: left;
+	padding: 0.8em 0.8em 0.0em 0.8em;
+	color: #039;
+}
+td {
+	padding: 1.0em;
+	color: #000000;
+}
+h3 {
+	color: #505050;
+	font-size: 2.6em;
+	font-weight: bold;
+	margin-top: -0.1em;
+	letter-spacing: -0.05em;
+	margin-bottom: -0.1em;
+}
+input {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	font-weight: bold;
+	font-family: Helvetica, Arial;
+	font-size: 1.0em;
+	border: none;
+}
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	width: 50.0em;
+}
+.filterbox {
+	border-radius: 1.0em;
+	background-image: -moz-linear-gradient(top, #fcfcfc, #f7f7f7 3%, #f2f2f2 12%, #d9d9d9 90%, #bfbfbf);
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#fcfcfc), to(#bfbfbf), color-stop(3%, #f7f7f7), color-stop(12%, #f2f2f2), color-stop(90%, #d9d9d9));
+	box-shadow: 0.0em 0.2em 0.5em rgba(0,0,0,0,0.74);
+}
+.roundbox {
+	border-radius: 1.0em;
+	background-image: -moz-radial-gradient(center center, cover, #fcfcfc, #f7f7f7 3%, #f2f2f2 12%, #f9e1bc 90%, #ffd085);
+	background-image: -webkit-gradient(radial, center center, 0, center center, 212, from(#fcfcfc), to(#ffd085), color-stop(3%, #f7f7f7), color-stop(12%, #f2f2f2), color-stop(90%, #f9e1bc));
+	box-shadow: 0.0em 0.2em 0.5em rgba(0,0,0,0,0.74);
+}
