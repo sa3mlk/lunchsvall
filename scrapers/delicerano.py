@@ -6,7 +6,7 @@ from urllib2 import urlopen
 from datetime import date
 import re
 
-URL = "http://delicerano.se/Lunch.html";
+URL = "http://delicerano.se/Lunch.html"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
