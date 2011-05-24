@@ -3,6 +3,7 @@ import bryners
 import delicerano
 import delinorr
 import gardshuset
+import metropol
 import invito
 import lunchguiden
 import max
@@ -15,6 +16,7 @@ def get_daily_specials():
 		bryners,
 		delinorr,
 		gardshuset,
+		metropol,
 		invito,
 		lunchguiden,
 		max,
