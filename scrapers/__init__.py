@@ -25,11 +25,13 @@ def get_daily_specials():
 
 	specials = []
 	for scraper in scrapers:
+		# The result can either be a list of dicts or a simple dict
 		result = scraper.get_daily_specials()
 		if isinstance(result, list):
 			specials.extend(result)
 		else:
 			specials.append(result)
 
-	return specials
+	# Remove all restaurants with no daily specials
+	return filter(lambda x: len(x["specials"]), specials)
 

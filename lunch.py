@@ -25,7 +25,6 @@ def lunchsvall_app(environment, start_response):
 
 	ret = ""
 	if os.path.isfile(cached_file):
-		#print "Returning cached file %s" % cached_file
 		with file(cached_file) as f:
 			ret = f.read()
 	else:
@@ -38,7 +37,6 @@ def lunchsvall_app(environment, start_response):
 
 	status = "200 OK"
 	headers = [
-		#("content-type", "text/plain"),
 		("content-type", "application/json"),
 		("content-length", str(len(ret)))
 	]

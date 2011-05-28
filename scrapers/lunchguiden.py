@@ -3,6 +3,7 @@
 
 from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
+from datetime import date
 
 URL = "http://kampanjsajt.nu/st/lunchguiden/"
 
@@ -15,6 +16,11 @@ def get_daily_specials():
 		soup.find("div", id="menu").findChildren("a", {"class": "block"})]
 
 	daily_specials = []
+
+	# No lunch on Saturday or Sunday
+	day = date.today().weekday()
+	if day == 5 or day == 6:
+		return daily_specials
 
 	for r in restaurants:
 		def specials():
