@@ -11,6 +11,7 @@ $(function() {
 	$('input.search').focus();
 
 	var data_url = "get_json.php";
+	var no_specials_found = false;
 
 	$.ajax({
 		async: false,
@@ -18,20 +19,28 @@ $(function() {
 		url: data_url,
 		type: "GET",
 		success: function(data) {
-			$.each(data, function(i, n) {
-				var daily_specials = "";
-				$.each(n.specials, function(j, m) {
-					daily_specials += m + "<br/>";
+			if (data.length == 0) {
+				$("#daily_specials thead").replaceWith("<tr><td><strong>Tji fick du, hittade inga luncher idag!</strong></td></tr>");
+				no_specials_found = true;
+			}
+			else {
+				$.each(data, function(i, n) {
+					var daily_specials = "";
+					$.each(n.specials, function(j, m) {
+						daily_specials += m + "<br/>";
+					});
+					$("#daily_specials > tbody:last").append(
+						"<tr><td valign=\"top\"><strong>"+ n.name +"</strong></td>" +
+						"<td>" + daily_specials + "</td></tr>"
+					);
 				});
-				$("#daily_specials > tbody:last").append(
-					"<tr><td valign=\"top\"><strong>"+ n.name +"</strong></td>" +
-					"<td>" + daily_specials + "</td></tr>"
-				);
-			});
+			}
 		}
 	});
 
 	$('.search').keyup(function() {
+			if (no_specials_found)
+				return;
 			var search = $(this).val();
 			var num_visible = 0;
 			$('#daily_specials tr').each(function() {
