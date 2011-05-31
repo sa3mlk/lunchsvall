@@ -12,7 +12,13 @@ def get_daily_specials():
 	soup = BeautifulSoup(page)
 	page.close()
 
-	daily_specials = {"name": "mAx", "specials": []}
+	daily_specials = {
+		"name": "mAx",
+		"specials": [],
+		"streetaddress": "Landsvägsallén 5, Sundsvall",
+		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=mFQRqbiq0V2C0M4wvtGY0w%253d%253d"
+	}
+
 	day = date.today().weekday()
 
 	# Only Monday - Friday

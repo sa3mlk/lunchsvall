@@ -15,7 +15,12 @@ def get_daily_specials():
 
 	os.system("pdf2txt.py -c utf-8 -o delinorr.txt delinorr.pdf")
 
-	daily_specials = {"name": "Deli Norr", "specials": []}
+	daily_specials = {
+		"name": "Deli Norr",
+		"specials": [],
+		"streetaddress": "Nybrogatan 5, Sundsvall",
+		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=tURKyBsIBejyvRtSYTRetQ%253d%253d"
+	}
 
 	day_str = ""
 	try:

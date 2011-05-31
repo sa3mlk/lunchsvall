@@ -17,7 +17,12 @@ def get_daily_specials():
 	with file("brandstation.pdf", "wb") as f:
 		f.write(page.read())
 
-	daily_specials = {"name": "Brandstation", "specials": []}
+	daily_specials = {
+		"name": "Brandstation",
+		"specials": [],
+		"streetaddress": "Köpmangatan 29, Sundsvall",
+		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=3LhMg0f89wskR4cV3PAzfA%253d%253d&Vkid=1622144"
+	}
 
 	try:
 		p = Popen("pdf2txt.py -c utf-8 -o brandstation.txt brandstation.pdf", shell=True)

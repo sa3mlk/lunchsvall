@@ -16,6 +16,9 @@ def main():
 		print e
 		exit(1)
 
+	with file("data.json", "w") as f:
+		f.write(json.dumps(data))
+
 	for i in data:
 		if not i["specials"]:
 			continue

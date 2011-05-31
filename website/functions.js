@@ -21,7 +21,9 @@ $(function() {
 						daily_specials += m + "<br/>";
 					});
 					$("#daily_specials > tbody:last").append(
-						"<tr><td valign=\"top\"><strong>"+ n.name +"</strong></td>" +
+						"<tr><td valign=\"top\">" +
+						"<strong>" + n.name + "</strong>" +
+						"<br/><a href=\"" + n.mapurl + "\"><small>" + n.streetaddress + "</small></td>" +
 						"<td>" + daily_specials + "</td></tr>"
 					);
 				});

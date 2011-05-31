@@ -11,7 +11,12 @@ def get_daily_specials():
 	page = urlopen(URL)
 	soup = BeautifulSoup(page)
 
-	daily_specials = {"name": "Invito", "specials": []}
+	daily_specials = {
+		"name": "Invito",
+		"specials": [],
+		"streetaddress": "Storgatan 6-8, Sundsvall",
+		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=h7sTX8JwG1d8a10%252fW3RuwA%253d%253d&Vkid=2688685"
+	}
 
 	day = date.today().weekday()
 

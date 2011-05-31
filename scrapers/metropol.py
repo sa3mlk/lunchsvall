@@ -13,7 +13,13 @@ def get_daily_specials(day=None):
 	soup = BeautifulSoup(page)
 	page.close()
 
-	daily_specials = {"name": "Metropol Restaurang & Café", "specials": []}
+	daily_specials = {
+		"name": "Metropol Restaurang & Café",
+		"specials": [],
+		"streetaddress": "Universitetsallén 32, Sundsvall",
+		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=2tPymsbRskRGTMh%2b%252fy0IEw%253d%253d"
+	}
+
 	if day == None:
 		day = date.today().weekday()
 

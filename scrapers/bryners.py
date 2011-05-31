@@ -7,7 +7,12 @@ def get_daily_specials():
 	from datetime import date
 	import re
 
-	daily_specials = {"name": "Bryners", "specials": []}
+	daily_specials = {
+		"name": "Bryners",
+		"specials": [],
+		"streetaddress": "Kyrkogatan 24, Sundsvall",
+		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=ims%2bc70lKiXCPdGPetps6w%253d%253d"
+	}
 
 	try:
 		today = date.today()
