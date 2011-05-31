@@ -1,8 +1,7 @@
 $(function() {
 	$('input.search').focus();
 
-	//var data_url = "get_json.php";
-	var data_url = "data.json";
+	var data_url = "get_json.php";
 	var no_specials_found = false;
 
 	$.ajax({
