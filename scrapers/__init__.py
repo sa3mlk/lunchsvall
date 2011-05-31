@@ -12,7 +12,6 @@ import skonerten
 def get_daily_specials():
 	scrapers = [
 		delicerano,
-		brandstation,
 		bryners,
 		delinorr,
 		gardshuset,
@@ -20,6 +19,7 @@ def get_daily_specials():
 		invito,
 		lunchguiden,
 		max,
+		brandstation,
 		skonerten
 	]
 
