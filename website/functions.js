@@ -10,7 +10,7 @@ $(function() {
 		url: data_url,
 		type: "GET",
 		success: function(data) {
-			if (data.length == 0) {
+			if (data.length === 0) {
 				$("#daily_specials thead").replaceWith("<tr><td><strong>Tji fick du, hittade inga luncher idag!</strong></td></tr>");
 				no_specials_found = true;
 			}
@@ -32,8 +32,9 @@ $(function() {
 	});
 
 	$('.search').keyup(function() {
-			if (no_specials_found)
+			if (no_specials_found) {
 				return;
+			}
 			var search = $(this).val();
 			var num_visible = 0;
 			$('#daily_specials tr').each(function() {
