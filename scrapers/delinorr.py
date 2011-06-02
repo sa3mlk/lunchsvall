@@ -9,7 +9,7 @@ from datetime import date
 URL = "http://www.delinorr.se/filearea_15.html"
 
 def get_weekly(soup, match):
-	# First locate the "Veckans soppa" <span>
+	# First locate the <span> according to the match argument
 	pattern = re.compile("^" + match, re.IGNORECASE)
 	span = soup.find(lambda tag: tag.name == "span" and pattern.match(tag.text))
 	# Next we need the parent <p> from the <span>
