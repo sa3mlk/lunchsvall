@@ -1,19 +1,28 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
+from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
-import os
+import re
 from datetime import date
 
-def get_daily_specials():
-	today = date.today()
-	year, week = today.isocalendar()[:2]
-	PDF_URL = "http://www.delinorr.se/files/Meny_Vecka_%d_%d.pdf" % (week, year)
-	page = urlopen(PDF_URL)
-	with file("delinorr.pdf", "wb") as f:
-		f.write(page.read())
+URL = "http://www.delinorr.se/filearea_15.html"
 
-	os.system("pdf2txt.py -c utf-8 -o delinorr.txt delinorr.pdf")
+def get_weekly(soup, match):
+	# First locate the "Veckans soppa" <span>
+	pattern = re.compile("^" + match, re.IGNORECASE)
+	span = soup.find(lambda tag: tag.name == "span" and pattern.match(tag.text))
+	# Next we need the parent <p> from the <span>
+	p = span.findParent("p")
+	# And the first sibling <table>
+	table = p.findNextSiblings("table", {"class": "MsoNormalTable", "cellpadding": "0", "border": "0"})[0]
+	# Last thing is the first <td> from the second <tr> 
+	return table.findAll("tr", limit=2)[1].td.text
+
+def get_daily_specials(day=None):
+	page = urlopen(URL)
+	soup = BeautifulSoup(page)
+	page.close()
 
 	daily_specials = {
 		"name": "Deli Norr",
@@ -22,34 +31,33 @@ def get_daily_specials():
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=tURKyBsIBejyvRtSYTRetQ%253d%253d"
 	}
 
-	day_str = ""
-	try:
-		pdf_days = {0: "åndag", 1: "Tisdag", 2: "Onsdag", 3: "Torsdag", 4: "Fredag"}
-		day_str = pdf_days[date.today().weekday()]
-	except KeyError:
-		return daily_specials
+	if day == None:
+		day = date.today().weekday()
 
-	collect = False
-	with file("delinorr.txt") as f:
-		day_len = len(day_str)
-		for line in f.readlines():
-			if collect:
-				if len(line) > 2:
-					daily_specials["specials"].append(line.strip())
-					break
-			if not collect and line[0:day_len] == day_str:
-				collect = True
+	day = [u"m&aring;ndag", u"tisdag", u"onsdag", u"torsdag", u"fredag"][day]
+	pattern = re.compile("^" + day, re.IGNORECASE)
+	today = soup.find(lambda tag: tag.name == "span" and pattern.match(tag.text)) 
+	parent = today.findParent("tr")
+	day = parent.findNextSiblings("tr", limit=1)[0]
+
+	daily_special = day.findChild("td").text
+	daily_specials["specials"].append(daily_special)
+	daily_specials["specials"].append("Veckans soppa: " + get_weekly(soup, "Veckans soppa"))
+	daily_specials["specials"].append("Veckans GI: " + get_weekly(soup, "Veckans&nbsp;GI"))
 
 	return daily_specials
 
 def main():
 	d = get_daily_specials()
 	print d["name"]
-	if len(d["specials"]) == 0:
-		print "No lunch today"
-	else:
-		for c in d["specials"]:
-			print "  ", c
+	for day in range(5):
+		d = get_daily_specials(day)
+		print "Day", day
+		if len(d["specials"]) == 0:
+			continue
+		else:
+			for c in d["specials"]:
+				print " ", c
 
 if __name__ == "__main__":
 	main()
