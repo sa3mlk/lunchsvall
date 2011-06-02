@@ -26,17 +26,18 @@ def get_daily_specials(day=None):
 	if day > 4:
 		return daily_specials
 
-	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
-	menu = soup.find("div", {"class": "entry-content"})
-	day = menu.find("strong", text=day)
-	daily_specials["specials"] = [unicode(day.next.next.next)]
+	today = soup.find("span", id=str(day))
+	if today:
+		daily_specials["specials"] = [today.contents[0]]
 
 	return daily_specials
 
 def main():
 	for day in range(5):
 		d = get_daily_specials(day)
-		print d["name"]
+		if len(d["specials"]) == 0:
+			continue
+		print "%s | day %d" % (d["name"], day)
 		for c in d["specials"]:
 			print "  ", c
 
