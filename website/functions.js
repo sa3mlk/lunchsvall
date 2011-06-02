@@ -24,7 +24,7 @@ $(function() {
 						"<tr><td valign=\"top\">" +
 						"<strong>" + n.name + "</strong>" +
 						"<br/><a href=\"" + n.mapurl + "\"><small>" + n.streetaddress + "</small></td>" +
-						"<td>" + daily_specials + "</td></tr>"
+						"<td valign=\"top\">" + daily_specials + "</td></tr>"
 					);
 				});
 			}
