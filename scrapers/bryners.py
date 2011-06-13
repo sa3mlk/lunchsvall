@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
+URL = "http://bryners.se"
+
 def get_daily_specials():
 	from BeautifulSoup import BeautifulSoup
 	from urllib2 import urlopen
@@ -11,6 +13,7 @@ def get_daily_specials():
 		"name": "Bryners",
 		"specials": [],
 		"streetaddress": "Kyrkogatan 24, Sundsvall",
+		"dataurl": URL,
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=ims%2bc70lKiXCPdGPetps6w%253d%253d"
 	}
 
@@ -22,7 +25,7 @@ def get_daily_specials():
 	except IndexError:
 		return daily_specials
 
-	page = urlopen("http://bryners.se")
+	page = urlopen(URL)
 	soup = BeautifulSoup(page)
 	page.close()
 

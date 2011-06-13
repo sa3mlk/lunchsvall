@@ -16,6 +16,7 @@ def get_daily_specials():
 		"name": "mAx",
 		"specials": [],
 		"streetaddress": "Landsvägsallén 5, Sundsvall",
+		"dataurl": URL,
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=mFQRqbiq0V2C0M4wvtGY0w%253d%253d"
 	}
 

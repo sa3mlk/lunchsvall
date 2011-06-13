@@ -25,7 +25,8 @@ def get_daily_specials():
 	for r in restaurants:
 		def get_details():
 			# Return a list of all specials for the given restaurant by its link reference
-			div = soup.find("a", {"class": "ref", "name": r[1]})
+			anchor = r[1]
+			div = soup.find("a", {"class": "ref", "name": anchor})
 
 			# Extract and strip the street address and map URL
 			em = div.parent.find("em")
@@ -39,6 +40,7 @@ def get_daily_specials():
 			return {
 				"specials": [li.text for li in ul] if ul else [],
 				"streetaddress": street,
+				"dataurl": "http://kampanjsajt.nu/st/lunchguiden/#" + anchor,
 				"mapurl": mapurl
 			}
 
@@ -48,6 +50,7 @@ def get_daily_specials():
 				"name": r[0],
 				"specials": s["specials"],
 				"streetaddress": s["streetaddress"],
+				"dataurl": s["dataurl"],
 				"mapurl": s["mapurl"]
 			})
 
@@ -56,7 +59,9 @@ def get_daily_specials():
 def main():
 	for d in get_daily_specials():
 		print d["name"].encode("UTF-8")
-		print " %s (%s)" % (d["streetaddress"], d["mapurl"])
+		print "streetaddress:", d["streetaddress"]
+		print "mapurl:", d["mapurl"]
+		print "dataurl:", d["dataurl"]
 		for c in d["specials"]:
 			print "  ", c.encode("UTF-8")
 

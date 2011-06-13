@@ -28,6 +28,7 @@ def get_daily_specials(day=None):
 		"name": "Deli Norr",
 		"specials": [],
 		"streetaddress": "Nybrogatan 5, Sundsvall",
+		"dataurl": URL,
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=tURKyBsIBejyvRtSYTRetQ%253d%253d"
 	}
 

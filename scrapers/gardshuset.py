@@ -16,6 +16,7 @@ def get_daily_specials(day=None):
 		"name": u"Restaurang Gårdshuset",
 		"specials": [],
 		"streetaddress": "Arthur Engbergs Väg 11, Sundsvall",
+		"dataurl": URL,
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=ww6BfFoSzg9YJaefKRj2tQ%253d%253d&Vkid=2670064"
 	}
 

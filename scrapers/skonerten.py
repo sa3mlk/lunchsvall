@@ -16,6 +16,7 @@ def get_daily_specials():
 		"name": "Skonerten",
 		"specials": [],
 		"streetaddress": "Packhusgatan 4, Sundsvall",
+		"dataurl": URL,
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=11IAWjLqMBv1aPZn4Dip9g%253d%253d&Vkid=1456953"
 	}
 

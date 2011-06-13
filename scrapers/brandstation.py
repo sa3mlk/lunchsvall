@@ -21,6 +21,7 @@ def get_daily_specials():
 		"name": "Brandstation",
 		"specials": [],
 		"streetaddress": "Köpmangatan 29, Sundsvall",
+		"dataurl": PDF_URL,
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=3LhMg0f89wskR4cV3PAzfA%253d%253d&Vkid=1622144"
 	}
 

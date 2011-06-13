@@ -17,6 +17,7 @@ def get_daily_specials(day=None):
 		"name": "Metropol Restaurang & Café",
 		"specials": [],
 		"streetaddress": "Universitetsallén 32, Sundsvall",
+		"dataurl": URL,
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=2tPymsbRskRGTMh%2b%252fy0IEw%253d%253d"
 	}
 

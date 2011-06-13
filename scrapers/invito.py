@@ -15,6 +15,7 @@ def get_daily_specials():
 		"name": "Invito",
 		"specials": [],
 		"streetaddress": "Storgatan 6-8, Sundsvall",
+		"dataurl": URL,
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=h7sTX8JwG1d8a10%252fW3RuwA%253d%253d&Vkid=2688685"
 	}
 

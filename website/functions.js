@@ -22,7 +22,7 @@ $(function() {
 					});
 					$("#daily_specials > tbody:last").append(
 						"<tr><td valign=\"top\">" +
-						"<strong>" + n.name + "</strong>" +
+						"<strong><a href=\"" + n.dataurl + "\">" + n.name + "</a></strong>" +
 						"<br/><a href=\"" + n.mapurl + "\"><small>" + n.streetaddress + "</small></td>" +
 						"<td valign=\"top\">" + daily_specials + "</td></tr>"
 					);

@@ -17,6 +17,7 @@ def get_daily_specials(day=None):
 		"name": "Delicerano",
 		"specials": [],
 		"streetaddress": "Sjögatan 7, Sundsvall",
+		"dataurl": URL,
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=BjgBy%2bYy%252fc3YvyHSBs8Xeg%253d%253d&Vkid=2856959"
 	}
 
