@@ -6,6 +6,7 @@ import gardshuset
 import metropol
 import invito
 import lunchguiden
+import dolcetto
 import max
 import skonerten
 
@@ -18,6 +19,7 @@ def get_daily_specials():
 		metropol,
 		invito,
 		lunchguiden,
+		dolcetto,
 		max,
 		brandstation,
 		skonerten
