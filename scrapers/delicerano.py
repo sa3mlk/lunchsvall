@@ -47,27 +47,36 @@ def get_daily_specials(day=None):
 		n = ""
 		for i, c in enumerate(s[0:-1]):
 			n += c
-			if s[i + 1].isupper() and c.islower():
+			if s[i + 1].isupper() and c.islower() or c == '.':
 				n += " "
 		return n + s[-1]
 
+	def split_on_price(s):
+		return filter(lambda s: len(s), map(lambda s: s.strip(), re.split("\d+.kr",s)))
+
 	def fix_string(s):
-		return add_missing_spaces(fix_html(s))
+		return split_on_price(add_missing_spaces(fix_html(s)))
 
 	pattern = re.compile(day, re.IGNORECASE)
 	day = soup.find(lambda tag: tag.name == "h2" and pattern.match(tag.text))
-	# FIXME: Sometimes two or more dishes share the same <p> tag; split them on "%d kr" perhaps?
-	siblings = day.findNextSiblings(lambda t: t.name == "p" and len(t.text), limit=4)
-	daily_specials["specials"] = filter(lambda x: len(x), map(lambda x: fix_string(x.text.strip()), siblings))
+	siblings = day.findNextSiblings(lambda t: t.name == "p" and len(t.text), limit=3)
+
+	for special in filter(lambda x: len(x), map(lambda x: fix_string(x.text.strip()), siblings)):
+		daily_specials["specials"].extend(special)
 
 	return daily_specials
 
 def main():
-	for day in range(5):
-		d = get_daily_specials(day)
-		print d["name"]
+	def print_specials(day, d):
+		print "Day", day
 		for c in d["specials"]:
 			print "  ", c
+
+	d = get_daily_specials(0)
+	print d["name"]
+	print_specials(0, d)
+	for day in range(1, 5):
+		print_specials(day, get_daily_specials(day))
 
 if __name__ == "__main__":
 	main()
