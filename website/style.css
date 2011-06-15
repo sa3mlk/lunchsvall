@@ -4,7 +4,8 @@ body {
 }
 table {
 	font-size: 1.0em;
-	margin: 1.0em;
+	margin-top: 1.0em;
+	margin-bottom: 1.0em;
 	text-align: left;
 	border-collapse: collapse;
 	width: 50.0em;
