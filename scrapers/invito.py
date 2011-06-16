@@ -10,6 +10,7 @@ URL = "http://www.invitobar.se/sundsvall/index.php/lunch"
 def get_daily_specials():
 	page = urlopen(URL)
 	soup = BeautifulSoup(page)
+	page.close()
 
 	daily_specials = {
 		"name": "Invito",
