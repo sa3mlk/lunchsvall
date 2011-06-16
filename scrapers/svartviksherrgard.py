@@ -21,6 +21,9 @@ def get_daily_specials(day=None):
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=pQwESnjorTiIAW4OJ3dOrg%253d%253d"
 	}
 
+	if day == None:
+		day = date.today().weekday()
+
 	days = [u"M&aring;ndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag", u"L&ouml;rdag", u"S&ouml;ndag"]
 	day = days[day]
 
