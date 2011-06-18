@@ -35,6 +35,10 @@ def get_daily_specials(day=None):
 	if day == None:
 		day = date.today().weekday()
 
+	# Only Monday - Friday
+	if day > 4:
+		return daily_specials
+
 	day = [u"m&aring;ndag", u"tisdag", u"onsdag", u"torsdag", u"fredag"][day]
 	pattern = re.compile("^" + day, re.IGNORECASE)
 	today = soup.find(lambda tag: tag.name == "span" and pattern.match(tag.text)) 
