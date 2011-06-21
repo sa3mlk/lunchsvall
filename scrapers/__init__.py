@@ -5,6 +5,7 @@ import delinorr
 import gardshuset
 import metropol
 import invito
+import jops
 import lunchguiden
 #import msmedvind
 import mittgastronomi
@@ -21,6 +22,7 @@ def get_daily_specials():
 		gardshuset,
 		metropol,
 		invito,
+		jops,
 		lunchguiden,
 		#msmedvind,
 		mittgastronomi,
