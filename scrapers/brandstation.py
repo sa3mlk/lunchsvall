@@ -29,8 +29,8 @@ def get_daily_specials():
 		p = Popen("pdf2txt.py -c utf-8 -o brandstation.txt brandstation.pdf", shell=True)
 		os.waitpid(p.pid, 0)[1]
 	except OSError:
-		print "Seems like you don't have PDFMiner installed."
-		return daily_specials
+		print >> sys.stderr, "Seems like you don't have PDFMiner installed."
+		raise
 
 	if not os.path.isfile("brandstation.txt"):
 		return daily_specials
