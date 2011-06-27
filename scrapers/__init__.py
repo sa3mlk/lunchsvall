@@ -1,6 +1,7 @@
 import bryners
 import delicerano
 import delinorr
+import casinoterrassen
 import gardshuset
 import metropol
 import invito
@@ -20,6 +21,7 @@ def get_daily_specials():
 		delicerano,
 		bryners,
 		delinorr,
+		casinoterrassen,
 		gardshuset,
 		metropol,
 		invito,
