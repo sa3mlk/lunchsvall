@@ -1,4 +1,3 @@
-import brandstation
 import bryners
 import delicerano
 import delinorr
@@ -7,12 +6,14 @@ import metropol
 import invito
 import jops
 import lunchguiden
-#import msmedvind
 import mittgastronomi
 import svartviksherrgard
 import dolcetto
 import max
+import brandstation
 import skonerten
+
+import sys, traceback
 
 def get_daily_specials():
 	scrapers = [
@@ -24,7 +25,6 @@ def get_daily_specials():
 		invito,
 		jops,
 		lunchguiden,
-		#msmedvind,
 		mittgastronomi,
 		svartviksherrgard,
 		dolcetto,
@@ -36,11 +36,16 @@ def get_daily_specials():
 	specials = []
 	for scraper in scrapers:
 		# The result can either be a list of dicts or a simple dict
-		result = scraper.get_daily_specials()
-		if isinstance(result, list):
-			specials.extend(result)
+		try:
+			result = scraper.get_daily_specials()
+		except Exception, e:
+			traceback.print_exc(file=sys.stderr)
+			print >> sys.stderr, "*"*80
 		else:
-			specials.append(result)
+			if isinstance(result, list):
+				specials.extend(result)
+			else:
+				specials.append(result)
 
 	# Remove all restaurants with no daily specials
 	return filter(lambda x: len(x["specials"]), specials)
