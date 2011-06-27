@@ -4,6 +4,7 @@
 from BeautifulSoup import BeautifulSoup, NavigableString
 from urllib2 import urlopen
 from datetime import date
+import re
 
 URL = "http://www.jops.se/2.html"
 
@@ -27,10 +28,17 @@ def get_daily_specials(day=None):
 	if day == 5 or day == 6:
 		return daily_specials
 
+	div = soup.find("div", id="t2")
+	if not div:
+		return daily_specials
+
 	day = [u"M&aring;ndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
-	day = soup.find(lambda tag: tag.name == "p" and tag.text == day)
-	specials = filter(lambda x: isinstance(x, NavigableString), day.findNextSibling("p"))
-	daily_specials["specials"] = [unicode(i).strip() for i in specials if len(i)]
+	pattern = re.compile("^" + day)
+	p = div.find(lambda tag: tag.name == "p" and pattern.match(tag.text))
+	specials = filter(lambda x: isinstance(x, NavigableString), p)
+
+	# Skip the first entry
+	daily_specials["specials"] = [unicode(i).strip() for i in specials if len(i)][1:]
 
 	return daily_specials
 
