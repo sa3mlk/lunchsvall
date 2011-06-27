@@ -7,7 +7,7 @@ from datetime import date
 
 URL = "http://www.skonerten.se/"
 
-def get_daily_specials():
+def get_daily_specials(day=None):
 	page = urlopen(URL)
 	soup = BeautifulSoup(page)
 	page.close()
@@ -20,7 +20,8 @@ def get_daily_specials():
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=11IAWjLqMBv1aPZn4Dip9g%253d%253d&Vkid=1456953"
 	}
 
-	day = date.today().weekday()
+	if day == None:
+		day = date.today().weekday()
 
 	# Only Monday - Friday
 	if day > 4:
@@ -43,10 +44,11 @@ def get_daily_specials():
 	return daily_specials
 
 def main():
-	d = get_daily_specials()
-	print d["name"]
-	for c in d["specials"]:
-		print "  ", c
+	for day in range(5):
+		d = get_daily_specials(day)
+		print "%s Day %d" % (d["name"], day)
+		for c in d["specials"]:
+			print "  ", c
 
 if __name__ == "__main__":
 	main()
