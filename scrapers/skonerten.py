@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString
+from BeautifulSoup import BeautifulSoup, NavigableString, Tag
 from urllib2 import urlopen
 from datetime import date
+import re
 
 URL = "http://www.skonerten.se/"
 
@@ -27,9 +28,23 @@ def get_daily_specials(day=None):
 	if day > 4:
 		return daily_specials
 
+	def process_tags(contents):
+		s = "".join(map(lambda x: x.text, filter(lambda x: isinstance(x, Tag), contents)))
+		s = filter(len, map(lambda s: s.strip(), re.split("\.", s)))
+		return s
+
+	def process_strings(contents):
+		s = filter(len, map(lambda x: str(x).strip(), filter(lambda x: isinstance(x, NavigableString), contents)))
+		return s
+
 	def food_filter(contents):
-		return map(lambda x: str(x).strip(),
-			filter(lambda x: isinstance(x, NavigableString), contents))
+		# First try to extract the strings
+		s = process_strings(contents)
+		if not len(s):
+			# But sometimes they have non-closed <b> tags around the specials
+			return process_tags(contents)
+		else:
+			return s
 
 	# Get all TDs with the following attributes
 	match = {"height": "50", "align": "left", "width": "50%"}
