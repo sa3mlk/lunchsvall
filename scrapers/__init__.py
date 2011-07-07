@@ -13,6 +13,7 @@ import mittgastronomi
 import svartviksherrgard
 import dolcetto
 import max
+import wretmans
 import brandstation
 import skonerten
 
@@ -35,6 +36,7 @@ def get_daily_specials():
 		svartviksherrgard,
 		dolcetto,
 		max,
+		wretmans,
 		brandstation,
 		skonerten
 	]
