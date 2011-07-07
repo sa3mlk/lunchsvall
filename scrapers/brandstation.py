@@ -10,8 +10,9 @@ import os
 import os.path
 from subprocess import Popen
 from datetime import date
+import re
 
-def get_daily_specials():
+def get_daily_specials(day=None):
 	PDF_URL = "http://brandstation.grankotten.com/lunch_brandstation.pdf"
 	page = urlopen(PDF_URL)
 	with file("brandstation.pdf", "wb") as f:
@@ -25,6 +26,9 @@ def get_daily_specials():
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=3LhMg0f89wskR4cV3PAzfA%253d%253d&Vkid=1622144"
 	}
 
+	if day == None:
+		day = date.today().weekday()
+
 	try:
 		p = Popen("pdf2txt.py -c utf-8 -o brandstation.txt brandstation.pdf", shell=True)
 		os.waitpid(p.pid, 0)[1]
@@ -37,32 +41,41 @@ def get_daily_specials():
 
 	day_str = ""
 	try:
-		pdf_days = {0: "åndag", 1: "isdag", 2: "nsdag", 3: "orsdag", 4: "redag"}
-		day_str = pdf_days[date.today().weekday()]
+		pdf_days = {0: "åndag", 1: "isdag", 2: "nsdag", 3: "orsdag", 4: "Fredag"}
+		day_str = pdf_days[day]
 	except KeyError:
 		return daily_specials
+
+	def fix_whitespace(line):
+		line = line.replace("\t", "").replace("\r", "")
+		line = line.replace("\xc2", "").replace("\xa0", "")
+		return line
 
 	collect = False
 	with file("brandstation.txt") as f:
 		day_len = len(day_str)
+		num_lines = 0
 		for line in f.readlines():
 			if collect:
-				if len(line) < 4:
+				if len(line) < 4 or num_lines == 3:
 					break
+				line = fix_whitespace(line)
 				daily_specials["specials"].append(line.strip())
+				num_lines += 1
 			if line[0:day_len] == day_str:
 				collect = True
 
 	return daily_specials
 
 def main():
-	d = get_daily_specials()
-	print d["name"]
-	if len(d["specials"]) == 0:
-		print "No lunch today"
-	else:
-		for c in d["specials"]:
-			print "  ", c
+	for day in range(5):
+		d = get_daily_specials(day)
+		print "%s day %d" % (d["name"], day)
+		if len(d["specials"]) == 0:
+			print "No lunch today"
+		else:
+			for c in d["specials"]:
+				print "  ", c
 
 if __name__ == "__main__":
 	main()
