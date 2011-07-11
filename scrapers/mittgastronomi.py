@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString
+from BeautifulSoup import BeautifulSoup, NavigableString, Tag
 from urllib2 import urlopen
 from datetime import date
 import re
@@ -30,27 +30,29 @@ def get_daily_specials(day=None):
 
 	day = [u"Måndag:", u"Tisdag:", u"Onsdag:", u"Torsdag:", u"Fredag:"][day]
 
-	def get_specials(match):
+	def get_specials(match, max_dishes):
 		specials = []
 		pattern = re.compile(match)
 		day = soup.find(lambda tag: tag.name == "strong" and re.match(pattern, tag.text))
 		next = day.next.next
-		while True:
+		while True and max_dishes != 0:
 			if isinstance(next, NavigableString):
 				s = str(next).strip()
 				if len(s) > 3:
 					specials.append(s[3:])
-			else:
+					max_dishes -= 1
+			elif isinstance(next, Tag):
 				if next.name == "p":
 					next = None
 			if next:
 				next = next.next
 			else:
 				break
+
 		return specials
 
-	daily_specials["specials"].extend(get_specials(day))
-	daily_specials["specials"].extend(get_specials("Hela veckan:"))
+	daily_specials["specials"].extend(get_specials(day, 3))
+	daily_specials["specials"].extend(get_specials("Hela veckan:", 3))
 
 	return daily_specials
 
