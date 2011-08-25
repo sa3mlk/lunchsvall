@@ -61,8 +61,11 @@ def get_daily_specials(day=None):
 	day = soup.find(lambda tag: tag.name == "h2" and pattern.match(tag.text))
 	siblings = day.findNextSiblings(lambda t: t.name == "p" and len(t.text), limit=3)
 
+	specials = []
 	for special in filter(lambda x: len(x), map(lambda x: fix_string(x.text.strip()), siblings)):
-		daily_specials["specials"].extend(special)
+		specials.extend(special)
+
+	daily_specials["specials"] = specials[0:4]
 
 	return daily_specials
 
