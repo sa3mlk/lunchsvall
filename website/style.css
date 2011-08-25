@@ -1,6 +1,6 @@
 body {
 	font-family: Helvetica, Arial;
-	background-color: #a0b0c0;
+	background: url("bodybg.png") repeat scroll left top #a0b0c0;
 }
 table {
 	font-size: 1.0em;
@@ -61,6 +61,6 @@ a:hover {
 }
 .roundbox {
 	border-radius: 1.0em;
-	background-color: #f7f7f7;
+	background: url("boxbg.png") repeat scroll left top #f7f7f7;
 	box-shadow: 0.0em 0.2em 0.5em rgba(0,0,0,0,0.74);
 }
