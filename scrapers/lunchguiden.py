@@ -5,6 +5,7 @@ from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
 from datetime import date
 
+BLACKLIST = [u"Laco di Como", u"Restaurang Brandstation"]
 URL = "http://kampanjsajt.nu/st/lunchguiden/"
 
 def get_daily_specials():
@@ -21,6 +22,9 @@ def get_daily_specials():
 	day = date.today().weekday()
 	if day == 5 or day == 6:
 		return daily_specials
+
+	# Filter out unwanted restaurants since we have unique scapers for them
+	restaurants = filter(lambda r: r[0] not in BLACKLIST, restaurants)
 
 	for r in restaurants:
 		def get_details():
