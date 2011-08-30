@@ -8,6 +8,7 @@ import fernaeus
 import metropol
 import invito
 import jops
+import lacodicomo
 import lunchguiden
 import mittgastronomi
 import svartviksherrgard
@@ -31,6 +32,7 @@ def get_daily_specials():
 		metropol,
 		invito,
 		jops,
+		lacodicomo,
 		lunchguiden,
 		mittgastronomi,
 		svartviksherrgard,
