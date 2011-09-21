@@ -23,7 +23,7 @@ def get_daily_specials():
 	if day == 5 or day == 6:
 		return daily_specials
 
-	# Filter out unwanted restaurants since we have unique scapers for them
+	# Filter out unwanted restaurants since we have unique scrapers for them
 	restaurants = filter(lambda r: r[0] not in BLACKLIST, restaurants)
 
 	for r in restaurants:
