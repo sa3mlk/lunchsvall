@@ -15,8 +15,23 @@
 
 <div class="center">
 <table class="roundbox">
-	<tr><td colspan="2"><h3>Jaha, vad är du sugen på idag då?</h3></td></tr>
-	<tr><td><strong>Filtrera</strong><input class="search" type="text"/><small>(t. ex. korv eller din favoritrestaurang)</small></td><td align="right"><g:plusone size="medium"></g:plusone></td></tr>
+	<tr><td colspan="3"><h3>Jaha, vad är du sugen på idag då?</h3></td></tr>
+	<tr>
+		<td><strong>Filtrera</strong><input class="search" type="text"/><small>(t. ex. korv eller din favoritrestaurang)</small></td>
+		<!-- Facebook Like button -->
+		<td align="right">
+			<div id="fb-root"></div>
+			<script>(function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) {return;}
+			  js = d.createElement(s); js.id = id;
+			  js.src = "//connect.facebook.net/en_US/all.js#appId=253039768072458&xfbml=1";
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+			<div class="fb-like" data-href="http://gulle.se/lunch" data-send="false" data-layout="button_count" data-width="20" data-show-faces="false" data-font="arial"></div>
+		</td>
+		<!-- Google Plus button -->
+		<td align="right"><g:plusone size="medium"></g:plusone></td></tr>
 </table>
 
 <table id="daily_specials" class="roundbox">
