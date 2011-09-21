@@ -2,6 +2,7 @@ import bryners
 import delicerano
 import delinorr
 import casinoterrassen
+import opus
 import gardshuset
 import olearys
 import fernaeus
@@ -27,6 +28,7 @@ def get_daily_specials():
 		bryners,
 		delinorr,
 		casinoterrassen,
+		opus,
 		gardshuset,
 		olearys,
 		fernaeus,
