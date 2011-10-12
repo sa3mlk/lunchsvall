@@ -5,7 +5,11 @@ from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
 from datetime import date
 
-BLACKLIST = [u"Laco di Como", u"Restaurang Brandstation"]
+BLACKLIST = [
+	u"Laco di Como",
+	u"Restaurang Brandstation",
+	u"Restaurang Metropol"
+]
 URL = "http://kampanjsajt.nu/st/lunchguiden/"
 
 def get_daily_specials():
@@ -13,7 +17,7 @@ def get_daily_specials():
 	soup = BeautifulSoup(page)
 	page.close()
 
-	restaurants = [(i.text, i["href"][1:]) for i in
+	restaurants = [(i.text, i["onclick"].split("'")[1]) for i in
 		soup.find("div", id="menu").findChildren("a", {"class": "block"})]
 
 	daily_specials = []
@@ -30,7 +34,7 @@ def get_daily_specials():
 		def get_details():
 			# Return a list of all specials for the given restaurant by its link reference
 			anchor = r[1]
-			div = soup.find("a", {"class": "ref", "name": anchor})
+			div = soup.find("div", id=r[1])
 
 			# Extract and strip the street address and map URL
 			em = div.parent.find("em")
