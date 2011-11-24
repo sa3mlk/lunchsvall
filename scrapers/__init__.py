@@ -1,5 +1,6 @@
-import bryners
 import aglantan
+import biteline
+import bryners
 import delicerano
 import delinorr
 import casinoterrassen
@@ -44,6 +45,7 @@ def get_daily_specials():
 		dolcetto,
 		max,
 		wretmans,
+		biteline,
 		brandstation,
 		skonerten
 	]
