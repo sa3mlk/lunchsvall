@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8"/>
 <title>Dagens lunch i Sundsvall</title>
-<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="style.css?v=2"/>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-<script src="functions.js"></script>
+<script src="functions.js?v=2" type="text/javascript"></script>
 <script src="https://apis.google.com/js/plusone.js">{lang: 'sv'}</script>
 </head>
 
@@ -15,11 +15,13 @@
 
 <div class="center">
 <table class="roundbox">
-	<tr><td colspan="3"><h3>Vad är du sugen på idag då?</h3></td></tr>
 	<tr>
-		<td><strong>Filtrera</strong><input class="search" type="text"/><small>(t. ex. korv eller din favoritrestaurang)</small></td>
+		<td colspan="3"><h3>Vad är du sugen på idag då?</h3></td>
+	</tr>
+	<tr>
+		<td><a href="#" class="button" onclick="random_filter()">Slumpa</a><strong> Filtrera</strong><input class="search" type="text"/></td>
 		<!-- Facebook Like button -->
-		<td align="right">
+		-<td align="right">
 			<div id="fb-root"></div>
 			<script>(function(d, s, id) {
 			  var js, fjs = d.getElementsByTagName(s)[0];
@@ -31,7 +33,8 @@
 			<div class="fb-like" data-href="http://gulle.se/lunch" data-send="false" data-layout="button_count" data-width="20" data-show-faces="false" data-font="arial"></div>
 		</td>
 		<!-- Google Plus button -->
-		<td align="right"><g:plusone size="medium"></g:plusone></td></tr>
+		<td align="right"><g:plusone size="medium"></g:plusone></td>
+	</tr>
 </table>
 
 <table id="daily_specials" class="roundbox">
