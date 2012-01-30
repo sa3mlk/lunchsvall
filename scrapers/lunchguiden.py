@@ -10,7 +10,7 @@ BLACKLIST = [
 	u"Restaurang Brandstation",
 	u"Restaurang Metropol"
 ]
-URL = "http://kampanjsajt.nu/st/lunchguiden/"
+URL = "http://wp.mittmedia.se/lunchguiden/st/"
 
 def get_daily_specials():
 	page = urlopen(URL)
