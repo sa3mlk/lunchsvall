@@ -48,7 +48,7 @@ def get_daily_specials():
 			return {
 				"specials": [li.text for li in ul] if ul else [],
 				"streetaddress": street,
-				"dataurl": "http://kampanjsajt.nu/st/lunchguiden/#" + anchor,
+				"dataurl": URL + "#" + anchor,
 				"mapurl": mapurl
 			}
 
