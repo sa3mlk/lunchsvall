@@ -75,6 +75,14 @@ $(function () {
 		}
 	});
 
+	var url = window.location.href;
+	var pos = window.location.href.search("#");
+	if (pos > 0) {
+		var query = decodeURIComponent(url.substr(pos + 1));
+		$('.search').val(query);
+		filter_specials(query);
+	}
+
 	$('.search').keyup(function () {
 		if (no_specials_found) {
 			return;
