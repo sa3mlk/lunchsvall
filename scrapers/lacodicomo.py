@@ -29,13 +29,15 @@ def get_daily_specials(day=None):
 		return daily_specials
 
 	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
-	div = soup.find(id="colleft")
+
+	div = soup.find("p", text=day).parent.findNextSibling("div", id=34)
+	daily_specials["specials"] = [l.text for l in div.ul.findAll("li")]
 
 	def split_items(s):
 		return map(lambda x: x.replace("\n", "").strip(), filter(lambda y: isinstance(y, NavigableString), s.contents))
 
-	items = [(u"Dagens", day), (u"Sallad", u"Sallad"), (u"Pasta", u"Pasta")]
-	daily_specials["specials"] = [t[0] + ": " + ". ".join(split_items(soup.find("h2", text=t[1]).parent.findNextSibling("p"))) for t in items]
+	items = [(u"Sallad", u"Sallad"), (u"Pasta", u"Pasta")]
+	daily_specials["specials"].extend([t[0] + ": " + ". ".join(split_items(soup.find("h2", text=t[1]).parent.findNextSibling("p"))) for t in items])
 
 	return daily_specials
 
