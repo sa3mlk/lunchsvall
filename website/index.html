@@ -17,12 +17,13 @@
 <div class="center">
 <table class="roundbox">
 	<tr>
-		<td colspan="3"><h3>Vad är du sugen på idag då?</h3></td>
+		<td colspan="2"><h3>Vad är du sugen på idag då?</h3></td>
 	</tr>
 	<tr>
 		<td><a href="#" class="button" onclick="random_filter()">Slumpa</a><strong> Filtrera</strong><input class="search" type="text"/></td>
-		<!-- Facebook Like button -->
-		<td align="right">
+		<td>
+			<!-- Facebook Like button -->
+			<div style="width: 90px; overflow: hidden; float: left; display: inline-block;">
 			<div id="fb-root"></div>
 			<script>(function(d, s, id) {
 			  var js, fjs = d.getElementsByTagName(s)[0];
@@ -32,9 +33,11 @@
 			  fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));</script>
 			<div class="fb-like" data-href="http://gulle.se/lunch" data-send="false" data-layout="button_count" data-width="20" data-show-faces="false" data-font="arial"></div>
+			</div>
+			<!-- Google Plus button -->
+			<g:plusone size="medium"></g:plusone>
+			</div>
 		</td>
-		<!-- Google Plus button -->
-		<td align="right"><g:plusone size="medium"></g:plusone></td>
 	</tr>
 </table>
 
