@@ -60,6 +60,9 @@ def get_daily_specials(day=None):
 	pattern = re.compile(day, re.IGNORECASE)
 	day = soup.find(lambda tag: tag.name == "h2" and pattern.match(tag.text))
 	siblings = day.findNextSiblings(lambda t: t.name == "p" and len(t.text), limit=3)
+	for s in siblings:
+		strong = s.find(lambda tag: tag.name == "strong" and len(tag.text))
+		strong.replaceWith(strong.text + u"&nbsp;")
 
 	specials = []
 	for special in filter(lambda x: len(x), map(lambda x: fix_string(x.text.strip()), siblings)):
