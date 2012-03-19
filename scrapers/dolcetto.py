@@ -32,16 +32,8 @@ def get_daily_specials(day=None):
 
 	pattern = re.compile(day, re.IGNORECASE)
 	day = soup.find(lambda tag: tag.name == "p" and pattern.match(tag.text))
-	siblings = day.findNextSiblings(lambda t: t.name == "p" and len(t.text), limit=2)
+	daily_specials["specials"] = [day.findNextSibling(lambda t: t.name == "p" and len(t.text)).text.strip()]
 
-	specials = filter(lambda x: len(x), map(lambda x: x.text.strip(), siblings))
-	# Join strings where the string begin with a lower case character
-	for i, s in enumerate(specials):
-		if s[0].islower():
-			specials[i - 1] += " %s" % s
-
-	# Delete all strings that only contains "&nbsp;" or begin with a lower case character
-	daily_specials["specials"] = filter(lambda s: s[0].isupper() and s != "&nbsp;", specials)
 	return daily_specials
 
 def main():
