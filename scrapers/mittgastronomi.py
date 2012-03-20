@@ -30,7 +30,7 @@ def get_daily_specials(day=None):
 
 	day = [u"Måndag:", u"Tisdag:", u"Onsdag:", u"Torsdag:", u"Fredag:"][day]
 
-	def get_specials(match, max_dishes):
+	def get_specials(match, max_dishes=3):
 		specials = []
 		pattern = re.compile(match)
 		day = soup.find(lambda tag: tag.name == "strong" and re.match(pattern, tag.text))
@@ -39,7 +39,7 @@ def get_daily_specials(day=None):
 			if isinstance(next, NavigableString):
 				s = str(next).strip()
 				if len(s) > 3:
-					specials.append(s[3:])
+					specials.append(s[2:].strip())
 					max_dishes -= 1
 			elif isinstance(next, Tag):
 				if next.name == "p":
@@ -51,8 +51,8 @@ def get_daily_specials(day=None):
 
 		return specials
 
-	daily_specials["specials"].extend(get_specials(day, 3))
-	daily_specials["specials"].extend(get_specials("Hela veckan:", 3))
+	daily_specials["specials"].extend(get_specials(day))
+	daily_specials["specials"].extend(get_specials("Hela veckan:"))
 
 	return daily_specials
 
