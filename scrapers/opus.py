@@ -35,11 +35,12 @@ def get_daily_specials(day=None):
 	specials = []
 	for i in range(8):
 		day = day.nextSibling
+		if not day or len(specials) == 2:
+			break
 		if isinstance(day, NavigableString):
 			specials.append(day.strip())
-
+	
 	daily_specials["specials"] = specials
-
 	return daily_specials
 
 def main():
