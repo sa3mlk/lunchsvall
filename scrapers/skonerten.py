@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString, Tag
+from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
 from datetime import date
 import re
 
-URL = "http://www.skonerten.se/"
+URL = "http://skonerten.se/meny/"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
@@ -28,33 +28,13 @@ def get_daily_specials(day=None):
 	if day > 4:
 		return daily_specials
 
-	def process_tags(contents):
-		s = "".join(map(lambda x: x.text, filter(lambda x: isinstance(x, Tag), contents)))
-		s = filter(len, map(lambda s: s.strip(), re.split("\.", s)))
-		return s
+	day = [u"Måndag:", u"Tisdag:", u"Onsdag:", u"Torsdag:", u"Fredag:"][day]
 
-	def process_strings(contents):
-		s = filter(len, map(lambda x: str(x).strip(), filter(lambda x: isinstance(x, NavigableString), contents)))
-		return s
+	span = soup.find(lambda tag: tag.name == "span" and tag.text == day)
 
-	def food_filter(contents):
-		# First try to extract the strings
-		s = process_strings(contents)
-		if not len(s):
-			# But sometimes they have non-closed <b> tags around the specials
-			return process_tags(contents)
-		else:
-			return s
-
-	# Get all TDs with the following attributes
-	match = {"height": "50", "align": "left", "width": "50%"}
-	tds = soup.findAll("td", match)
-	daily_specials["specials"] = food_filter(tds[day].find("font").contents)
-
-	# ... and all daily soups
-	match["width"] = "30%"
-	tds = soup.findAll("td", match)
-	daily_specials["specials"] += food_filter(tds[day].find("font").contents)
+	parent = span.findParent("h6")
+	daily_specials["specials"].append(parent.text[len(day):].strip())
+	daily_specials["specials"].extend([t.text.strip() for t in parent.findNextSiblings("h6", limit=2)])
 
 	return daily_specials
 
