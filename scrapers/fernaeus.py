@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
-from BeautifulSoup import BeautifulSoup
+from BeautifulSoup import BeautifulSoup, Tag
 from urllib2 import urlopen
 from datetime import date
 import re
 
-URL = "http://www.fernaeusgastronomiska.nu/?s=3&meny=lunch"
+URL = "http://www.fernaeusgastronomiska.nu/menyer/veckans-lunch.aspx"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
@@ -29,16 +29,10 @@ def get_daily_specials(day=None):
 		return daily_specials
 
 	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
-	anchor = soup.find("b", {"class": "mark"}, text=day)
-	specials = anchor.parent.findNextSibling("table").findAll("td")
-	specials = [s.text for s in specials if len(s.text) > 2]
 
-	# Add proper whitespace for e.g. "Sallad:Blabla" occurrences
-	def add_proper_whitespace(m):
-		s = m.group(0)
-		return s[0:-1] + " " + s[-1]
-
-	daily_specials["specials"] = map(lambda x: re.sub("\w+:[A-Z]", add_proper_whitespace, x), specials)
+	parent = soup.find("h2", text=day).parent
+	lis = parent.findNextSibling("ul").findAll("li", limit=3)
+	daily_specials["specials"] = [t.text[2:] for t in lis]
 
 	return daily_specials
 
