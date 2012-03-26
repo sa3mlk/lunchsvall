@@ -1,4 +1,5 @@
 import aglantan
+import bilbiten
 import biteline
 import bryners
 import delicerano
@@ -42,6 +43,7 @@ def get_daily_specials():
 		max,
 		wretmans,
 		biteline,
+		bilbiten,
 		brandstation,
 		skonerten
 	]
