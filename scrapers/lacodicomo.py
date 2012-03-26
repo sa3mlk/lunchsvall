@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString
+from BeautifulSoup import BeautifulSoup, NavigableString, Tag
 from urllib2 import urlopen
 from datetime import date
 import re
@@ -30,7 +30,7 @@ def get_daily_specials(day=None):
 
 	day = [(u"Måndag", 2), (u"Tisdag", 2), (u"Onsdag", 2), (u"Torsdag", 2), (u"Fredag", 3)][day]
 	ref = soup.find("h2", text=day[0]).parent
-	daily_specials["specials"] = [t.text.strip() for t in ref.findNextSiblings("p", limit=day[1]) if len(t.text.strip())]
+	daily_specials["specials"] = [li.text.strip() for li in ref.findNextSibling("ul") if isinstance(li, Tag)]
 
 	return daily_specials
 
