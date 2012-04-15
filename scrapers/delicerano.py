@@ -4,6 +4,7 @@
 from BeautifulSoup import BeautifulSoup, NavigableString
 from urllib2 import urlopen
 from datetime import date
+from coordinates import get_coordinate
 import re
 
 URL = "http://delicerano.se/Lunch.html"
@@ -13,12 +14,14 @@ def get_daily_specials(day=None):
 	soup = BeautifulSoup(page)
 	page.close()
 
+	name = "Delicerano"
 	daily_specials = {
-		"name": "Delicerano",
+		"name": name,
 		"specials": [],
 		"streetaddress": "Sjögatan 7, Sundsvall",
 		"dataurl": URL,
-		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=BjgBy%2bYy%252fc3YvyHSBs8Xeg%253d%253d&Vkid=2856959"
+		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=BjgBy%2bYy%252fc3YvyHSBs8Xeg%253d%253d&Vkid=2856959",
+		"geopos": get_coordinate(name)
 	}
 
 	if day == None:

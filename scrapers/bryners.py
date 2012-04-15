@@ -7,14 +7,17 @@ def get_daily_specials():
 	from BeautifulSoup import BeautifulSoup
 	from urllib2 import urlopen
 	from datetime import date
+	from coordinates import get_coordinate
 	import re
 
+	name = "Bryners"
 	daily_specials = {
-		"name": "Bryners",
+		"name": name, 
 		"specials": [],
 		"streetaddress": "Kyrkogatan 24, Sundsvall",
 		"dataurl": URL,
-		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=ims%2bc70lKiXCPdGPetps6w%253d%253d"
+		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=ims%2bc70lKiXCPdGPetps6w%253d%253d",
+		"geopos": get_coordinate(name)
 	}
 
 	try:
