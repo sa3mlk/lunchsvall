@@ -6,7 +6,7 @@ from urllib2 import urlopen
 from datetime import date
 import re
 
-URL = "http://delicerano.se/Lunch.html"
+URL = "http://delicerano.se/lunch.htm"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
@@ -28,7 +28,7 @@ def get_daily_specials(day=None):
 	if day == 5 or day == 6:
 		return daily_specials
 
-	day = [u"m&aring;ndag", u"tisdag", u"onsdag", u"torsdag", u"fredag"][day]
+	day = [u"M&aring;ndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
 
 	def fix_html(s):
 		# TODO: You might add more special html characters here
@@ -41,9 +41,6 @@ def get_daily_specials(day=None):
 		return s
 
 	def add_missing_spaces(s):
-		# Ugly patch
-		if s.find("VECKANS MENY") != -1:
-			return ""
 		n = ""
 		for i, c in enumerate(s[0:-1]):
 			n += c
@@ -55,11 +52,11 @@ def get_daily_specials(day=None):
 		return filter(lambda s: len(s), map(lambda s: s.strip(), re.split("\d+.kr",s)))
 
 	def fix_string(s):
-		return split_on_price(add_missing_spaces(fix_html(s)))
+		return map(lambda x: re.sub(r"\s+", " ", x), split_on_price(add_missing_spaces(fix_html(s))))
 
 	pattern = re.compile(day, re.IGNORECASE)
-	day = soup.find(lambda tag: tag.name == "h2" and pattern.match(tag.text))
-	siblings = day.findNextSiblings(lambda t: t.name == "p" and len(t.text), limit=3)
+	day = soup.find(lambda tag: tag.name == "h3" and pattern.match(tag.text))
+	siblings = day.findNextSiblings(lambda t: t.name == "p" and len(t.text), limit=4)
 	for s in siblings:
 		strong = s.find(lambda tag: tag.name == "strong" and len(tag.text))
 		strong.replaceWith(strong.text + u"&nbsp;")
