@@ -36,10 +36,14 @@ def get_daily_specials():
 			anchor = r[1]
 			div = soup.find("div", id=r[1])
 
-			# Extract and strip the street address and map URL
+			href = div.parent.find("p").findChild("a")
+			mapurl = href["href"] if href else ""
+
+			# Extract and strip the street address
 			em = div.parent.find("em")
+
 			street = str(em.contents[0]).strip().replace("\r\n", " ")
-			mapurl = unicode(em.contents[1]["href"]).strip()
+			#mapurl = unicode(em.contents[1]["href"]).strip()
 
 			ul = div.parent.find("ul")
 
@@ -72,6 +76,7 @@ def main():
 		print "dataurl:", d["dataurl"]
 		for c in d["specials"]:
 			print "  ", c.encode("UTF-8")
+		raw_input()
 
 if __name__ == "__main__":
 	main()
