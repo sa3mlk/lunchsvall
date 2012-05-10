@@ -41,9 +41,7 @@ def get_daily_specials():
 
 			# Extract and strip the street address
 			em = div.parent.find("em")
-
 			street = str(em.contents[0]).strip().replace("\r\n", " ")
-			#mapurl = unicode(em.contents[1]["href"]).strip()
 
 			ul = div.parent.find("ul")
 
