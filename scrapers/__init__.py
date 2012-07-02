@@ -1,7 +1,7 @@
 import aglantan
 import bilbiten
-import biteline
 import bryners
+import curryhouse
 import delicerano
 import delinorr
 import casinoterrassen
@@ -27,6 +27,7 @@ def get_daily_specials():
 	scrapers = [
 		delicerano,
 		aglantan,
+		curryhouse,
 		bryners,
 		delinorr,
 		casinoterrassen,
@@ -42,7 +43,6 @@ def get_daily_specials():
 		dolcetto,
 		max,
 		wretmans,
-		biteline,
 		bilbiten,
 		brandstation,
 		skonerten

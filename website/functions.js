@@ -1,5 +1,4 @@
 function filter_specials(query) {
-	"use strict";
 	var search = query, num_visible = 0;
 	$('#daily_specials tr').each(function () {
 		// Case-insensitive match
@@ -31,7 +30,6 @@ function filter_specials(query) {
 }
 
 function random_filter() {
-	"use strict";
 	// Don't include the first header tr
 	var num_restaurants = $('#daily_specials tr').length - 1;
 	// Select a restaurant between 1 and num_restaurants
@@ -42,11 +40,71 @@ function random_filter() {
 	filter_specials(query);
 }
 
-$(function () {
-	"use strict";
-	$('input.search').focus();
+function radians(n) {
+	/* Converts numeric degrees to radians */
+	return n * Math.PI / 180;
+}
 
-	var data_url = "get_json.php";
+function distance(pos1, pos2) {
+	/* Radius of the Earth in metres */
+	var R = 6371000.0;
+
+	var dLat = radians(pos2.lat - pos1.lat);
+	var dLon = radians(pos2.lon - pos1.lon); 
+
+	var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+			Math.cos(radians(pos1.lat)) * Math.cos(radians(pos2.lat)) * 
+			Math.sin(dLon / 2) * Math.sin(dLon / 2); 
+
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+
+	/* Return the distance in metres */
+	return R * c;
+}
+
+function format_distance(pos1, pos2) {
+	var meters = Math.round(distance(pos1, pos2));
+	return meters + " meter";
+}
+
+function sort_items_on_distance(coords) {
+}
+
+function insert_distance(coords) {
+	$("#daily_specials tr:gt(0)").each(function() {
+		td = $(this).find("td").eq(2);
+		var split = td.text().split(",");
+		if (split.length === 2) {
+			td.html(format_distance(
+					{ "lat": split[0], "lon": split[1] },
+					{ "lat": coords.latitude, "lon": coords.longitude }
+				)
+			);
+		} else {
+			td.html("Okänt");
+		}
+	});
+}
+
+$(function () {
+	$("input.search").focus();
+
+	var coords = null;
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+			function (pos) {
+				insert_distance(pos.coords);
+			},
+			function (msg) {
+				alert("Error: " + msg);
+			}
+		);
+	}
+
+	//var data_url = "get_json.php";
+	//var data_url = "2012-04-13.json";
+	var data_url = "data.json";
 	var no_specials_found = false;
 
 	$.ajax({
@@ -64,12 +122,17 @@ $(function () {
 					$.each(n.specials, function (j, m) {
 						daily_specials += m + "<br/>";
 					});
+
 					$("#daily_specials > tbody:last").append(
 						"<tr><td valign=\"top\">" +
 						"<strong><a href=\"" + n.dataurl + "\">" + n.name + "</a></strong>" +
-						"<br/><a href=\"" + n.mapurl + "\"><small>" + n.streetaddress + "</small></td>" +
-						"<td valign=\"top\">" + daily_specials + "</td></tr>"
+						"<br/><a href=\"" + n.mapurl + "\">" +
+						"<small>" + n.streetaddress + "</small></a><br/>" +
+						"<td valign=\"top\">" + daily_specials + "</td>" +
+						"<td valign=\"top\">" + n.geopos + "</td>" +
+						"</tr>"
 					);
+
 				});
 			}
 		}

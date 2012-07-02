@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString
+from BeautifulSoup import BeautifulSoup, NavigableString, Tag
 from urllib2 import urlopen
 from datetime import date
 from coordinates import get_coordinate
 import re
 
-URL = "http://delicerano.se/Lunch.html"
+URL = "http://delicerano.se/lunch.htm"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
@@ -31,7 +31,7 @@ def get_daily_specials(day=None):
 	if day == 5 or day == 6:
 		return daily_specials
 
-	day = [u"m&aring;ndag", u"tisdag", u"onsdag", u"torsdag", u"fredag"][day]
+	day = [u"M&aring;ndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
 
 	def fix_html(s):
 		# TODO: You might add more special html characters here
@@ -44,30 +44,37 @@ def get_daily_specials(day=None):
 		return s
 
 	def add_missing_spaces(s):
-		# Ugly patch
-		if s.find("VECKANS MENY") != -1:
-			return ""
 		n = ""
+		if not s or s == n:
+			return " "; 
 		for i, c in enumerate(s[0:-1]):
 			n += c
-			if s[i + 1].isupper() and c.islower() or c == '.':
-				n += " "
+			if s[i + 1].isupper() and c.islower() or c == u'.':
+				n += u" "
 		return n + s[-1]
 
 	def split_on_price(s):
 		return filter(lambda s: len(s), map(lambda s: s.strip(), re.split("\d+.kr",s)))
 
 	def fix_string(s):
-		return split_on_price(add_missing_spaces(fix_html(s)))
+		return map(lambda x: re.sub(r"\s+", " ", x), split_on_price(add_missing_spaces(fix_html(s))))
 
 	pattern = re.compile(day, re.IGNORECASE)
-	day = soup.find(lambda tag: tag.name == "h2" and pattern.match(tag.text))
-	siblings = day.findNextSiblings(lambda t: t.name == "p" and len(t.text), limit=3)
+	day = soup.find(lambda tag: tag.name == "span" and pattern.match(tag.text))
+
+	if day.span:
+		day.span.extract()
+
+	siblings = day.findAllNext(lambda t: t.name == "span" and len(t.text))
+	if day and not pattern.match(day.text):
+		siblings.insert(0, day)
+	
 	for s in siblings:
 		strong = s.find(lambda tag: tag.name == "strong" and len(tag.text))
-		strong.replaceWith(strong.text + u"&nbsp;")
+		if strong:
+			strong.replaceWith(strong.text + u"&nbsp;")
 
-	specials = []
+	specials = [ ]
 	for special in filter(lambda x: len(x), map(lambda x: fix_string(x.text.strip()), siblings)):
 		specials.extend(special)
 
@@ -79,7 +86,7 @@ def main():
 	def print_specials(day, d):
 		print "Day", day
 		for c in d["specials"]:
-			print "  ", c
+			print u'  ', c
 
 	d = get_daily_specials(0)
 	print d["name"]
