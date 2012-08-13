@@ -2,7 +2,6 @@ import aglantan
 import bilbiten
 import bryners
 import curryhouse
-import delicerano
 import delinorr
 import casinoterrassen
 import opus
@@ -25,7 +24,6 @@ import simplejson as json
 
 def get_daily_specials():
 	scrapers = [
-		delicerano,
 		aglantan,
 		curryhouse,
 		bryners,
