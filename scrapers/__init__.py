@@ -3,6 +3,7 @@ import bilbiten
 import bryners
 import curryhouse
 import delinorr
+import delicerano
 import casinoterrassen
 import opus
 import fernaeus
@@ -28,6 +29,7 @@ def get_daily_specials():
 		curryhouse,
 		bryners,
 		delinorr,
+		delicerano,
 		casinoterrassen,
 		opus,
 		fernaeus,
