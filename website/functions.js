@@ -75,13 +75,13 @@ function insert_distance(coords) {
 		td = $(this).find("td").eq(2);
 		var split = td.text().split(",");
 		if (split.length === 2) {
-			td.html(format_distance(
+			td.html("<small>" + format_distance(
 					{ "lat": split[0], "lon": split[1] },
 					{ "lat": coords.latitude, "lon": coords.longitude }
-				)
+				) + "</small>"
 			);
 		} else {
-			td.html("Okänt");
+			td.html("<small>Okänt</small>");
 		}
 	});
 }
@@ -129,7 +129,7 @@ $(function () {
 						"<br/><a href=\"" + n.mapurl + "\">" +
 						"<small>" + n.streetaddress + "</small></a><br/>" +
 						"<td valign=\"top\">" + daily_specials + "</td>" +
-						"<td valign=\"top\">" + n.geopos + "</td>" +
+						"<td valign=\"top\"><small>" + n.geopos + "</small></td>" +
 						"</tr>"
 					);
 
