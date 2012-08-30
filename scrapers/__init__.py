@@ -1,4 +1,3 @@
-import aglantan
 import bilbiten
 import bryners
 import curryhouse
@@ -25,7 +24,6 @@ import simplejson as json
 
 def get_daily_specials():
 	scrapers = [
-		aglantan,
 		curryhouse,
 		bryners,
 		delinorr,
