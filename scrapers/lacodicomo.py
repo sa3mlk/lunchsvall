@@ -28,9 +28,15 @@ def get_daily_specials(day=None):
 	if day > 4:
 		return daily_specials
 
-	day = [(u"Måndag", 2), (u"Tisdag", 2), (u"Onsdag", 2), (u"Torsdag", 2), (u"Fredag", 3)][day]
-	ref = soup.find("h2", text=day[0]).parent
-	daily_specials["specials"] = [li.text.strip() for li in ref.findNextSibling("ul") if isinstance(li, Tag)]
+	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
+	pattern = re.compile(day, re.IGNORECASE)
+
+	anchor = soup.find(lambda tag: tag.name == "h2" and tag.text == day)
+	if not anchor:
+		return daily_specials
+
+	ul = anchor.findNext("ul")
+	daily_specials["specials"] = [li.text for li in ul.findAll("li")]
 
 	return daily_specials
 
@@ -41,10 +47,7 @@ def main():
 			print "  ", c
 		print ""
 
-	d = get_daily_specials(0)
-	print d["name"]
-	print_specials(0, d)
-	for day in range(1, 5):
+	for day in range(0, 5):
 		print_specials(day, get_daily_specials(day))
 
 if __name__ == "__main__":
