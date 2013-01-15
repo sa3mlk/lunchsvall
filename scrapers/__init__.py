@@ -12,6 +12,7 @@ import jops
 import lacodicomo
 import lunchguiden
 import mittgastronomi
+import norrlandskallaren
 import svartviksherrgard
 import dolcetto
 import max
@@ -37,6 +38,7 @@ def get_daily_specials():
 		lacodicomo,
 		lunchguiden,
 		mittgastronomi,
+		norrlandskallaren,
 		svartviksherrgard,
 		dolcetto,
 		max,
