@@ -6,7 +6,7 @@ from urllib2 import urlopen
 from datetime import date
 import re
 
-URL = "http://www.mittgastronomi.com/blogg/?page_id=4"
+URL = "http://www.mittgastronomi.com/menyer/dagenslunch"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
@@ -28,31 +28,11 @@ def get_daily_specials(day=None):
 	if day > 4:
 		return daily_specials
 
-	day = [u"Måndag:", u"Tisdag:", u"Onsdag:", u"Torsdag:", u"Fredag:"][day]
+	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
+	anchor = soup.find("h3", text=day).parent
 
-	def get_specials(match, max_dishes=3):
-		specials = []
-		pattern = re.compile(match)
-		day = soup.find(lambda tag: tag.name == "strong" and re.match(pattern, tag.text))
-		next = day.next.next
-		while True and max_dishes != 0:
-			if isinstance(next, NavigableString):
-				s = str(next).strip()
-				if len(s) > 3:
-					specials.append(s[2:].strip())
-					max_dishes -= 1
-			elif isinstance(next, Tag):
-				if next.name == "p":
-					next = None
-			if next:
-				next = next.next
-			else:
-				break
-
-		return specials
-
-	daily_specials["specials"].extend(get_specials(day))
-	daily_specials["specials"].extend(get_specials("Hela veckan:"))
+	specials = anchor.findNextSibling("p").text
+	daily_specials["specials"] = filter(len, re.split("\d. ", specials))
 
 	return daily_specials
 
@@ -61,12 +41,8 @@ def main():
 		print " Day", day
 		for c in d["specials"]:
 			print "  ", c
-		print ""
 
-	d = get_daily_specials(0)
-	print d["name"]
-	print_specials(0, d)
-	for day in range(1, 5):
+	for day in range(0, 5):
 		print_specials(day, get_daily_specials(day))
 
 if __name__ == "__main__":
