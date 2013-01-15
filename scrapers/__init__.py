@@ -1,9 +1,6 @@
 import bilbiten
 import bryners
-import curryhouse
 import delinorr
-import delicerano
-import casinoterrassen
 import opus
 import fernaeus
 import metropol
@@ -18,18 +15,14 @@ import dolcetto
 import max
 import wretmans
 import brandstation
-import skonerten
 
 import sys, traceback
 import simplejson as json
 
 def get_daily_specials():
 	scrapers = [
-		curryhouse,
 		bryners,
 		delinorr,
-		delicerano,
-		casinoterrassen,
 		opus,
 		fernaeus,
 		metropol,
@@ -45,7 +38,6 @@ def get_daily_specials():
 		wretmans,
 		bilbiten,
 		brandstation,
-		skonerten
 	]
 
 	specials = []
