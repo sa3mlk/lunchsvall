@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
 from datetime import date
+try:
+	import simplejson as json
+except ImportError:
+	import json
 
-URL = "http://www.sidsjohotell.se/restaurang-gardshuset/meny/"
+URL = "http://www.gulle.se/gardshuset/data/current.json"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
-	soup = BeautifulSoup(page)
+	data = json.loads(page.read())
 	page.close()
 
 	daily_specials = {
@@ -27,9 +30,9 @@ def get_daily_specials(day=None):
 	if day > 4:
 		return daily_specials
 
-	today = soup.find("span", id=str(day))
-	if today:
-		daily_specials["specials"] = [today.contents[0]]
+	d = ["mon", "tue", "wed", "thu", "fri"][day]
+	keys = ["%s%d" % (d, i) for i in range(1, 4)]
+	daily_specials["specials"] = filter(len, [data[k] for k in keys])
 
 	return daily_specials
 
