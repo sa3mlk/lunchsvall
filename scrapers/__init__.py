@@ -1,6 +1,7 @@
 import bilbiten
 import bryners
 import delinorr
+import gardshuset
 import opus
 import fernaeus
 import metropol
@@ -24,6 +25,7 @@ def get_daily_specials():
 		bryners,
 		delinorr,
 		opus,
+		gardshuset,
 		fernaeus,
 		metropol,
 		invito,
