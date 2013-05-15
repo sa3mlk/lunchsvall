@@ -1,5 +1,6 @@
 import bilbiten
 import bryners
+import delicerano
 import delinorr
 import gardshuset
 import opus
@@ -23,6 +24,7 @@ import simplejson as json
 def get_daily_specials():
 	scrapers = [
 		bryners,
+		delicerano,
 		delinorr,
 		opus,
 		gardshuset,

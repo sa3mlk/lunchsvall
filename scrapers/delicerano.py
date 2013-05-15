@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString
 from urllib2 import urlopen
 from datetime import date
-import re
+import simplejson as json
 
-URL = "http://delicerano.se/lunch.htm"
+URL = "http://www.gulle.se/delicerano/data/current.json"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
-	soup = BeautifulSoup(page)
+	data = json.loads(page.read())
 	page.close()
 
 	daily_specials = {
@@ -24,39 +23,24 @@ def get_daily_specials(day=None):
 	if day == None:
 		day = date.today().weekday()
 
-	# No lunch on Saturday or Sunday
-	if day == 5 or day == 6:
+	# Only Monday - Friday
+	if day > 4:
 		return daily_specials
 
-	day = [u"M&Aring;NDAG", u"TISDAG", u"ONSDAG", u"TORSDAG", u"FREDAG"][day]
-	pattern = re.compile(day, re.IGNORECASE)
-	day = soup.find(lambda tag: tag.name == "span" and pattern.match(tag.text))
+	d = ["mon", "tue", "wed", "thu", "fri"][day]
+	keys = ["%s%d" % (d, i) for i in range(1, 4)]
+	daily_specials["specials"] = filter(len, [data[k] for k in keys])
 
-	specials = []
-	siblings = day.findAllNext(lambda t: t.name == "p" and len(t.text), limit=4)
-	for sibling in siblings:
-		if len(specials) == 4:
-			break
-		for element in sibling:
-			if isinstance(element, NavigableString):
-				specials.append(str(element))
-				if len(specials) == 4:
-					break
-
-	daily_specials["specials"] = specials
 	return daily_specials
 
 def main():
-	def print_specials(day, d):
-		print "Day", day
+	for day in range(5):
+		d = get_daily_specials(day)
+		if len(d["specials"]) == 0:
+			continue
+		print "%s | day %d" % (d["name"], day)
 		for c in d["specials"]:
-			print u'  ', c
-
-	d = get_daily_specials(0)
-	print d["name"]
-	print_specials(0, d)
-	for day in range(1, 5):
-		print_specials(day, get_daily_specials(day))
+			print "  ", c
 
 if __name__ == "__main__":
 	main()
