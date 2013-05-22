@@ -17,7 +17,7 @@ def lunchsvall_app(environment, start_response):
 		return [":-("]
 
 	d = date.today()
-	cached_file = "cache/%d-%02d-%02d.json" % (d.year, d.month, d.day)
+	cached_file = "cache/{y}/{m:02}/{d}.json".format(y=d.year, m=d.month, d=d)
 	cache_dir = os.path.dirname(cached_file)
 
 	if not os.path.exists(cache_dir):
