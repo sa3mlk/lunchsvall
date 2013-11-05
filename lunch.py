@@ -7,6 +7,7 @@ import os
 import os.path
 import simplejson as json
 import scrapers
+from cache import format_cache_file
 
 PORT = 8000
 
@@ -16,9 +17,7 @@ def lunchsvall_app(environment, start_response):
 		start_response("404 NOT FOUND", [("content-type", "text/plain")])
 		return [":-("]
 
-	d = date.today()
-	cached_file = "cache/{y}/{m:02}/{d}.json".format(y=d.year, m=d.month, d=d)
-	cache_dir = os.path.dirname(cached_file)
+	cached_file, cache_dir = format_cache_file()
 
 	if not os.path.exists(cache_dir):
 		os.makedirs(cache_dir)

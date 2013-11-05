@@ -12,6 +12,7 @@ import lunchguiden
 import mittgastronomi
 import norrlandskallaren
 import svartviksherrgard
+import skonsmon
 import dolcetto
 import max
 import wretmans
@@ -35,6 +36,7 @@ def get_daily_specials():
 		mittgastronomi,
 		norrlandskallaren,
 		svartviksherrgard,
+		skonsmon,
 		dolcetto,
 		max,
 		wretmans,
