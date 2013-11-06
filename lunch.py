@@ -4,7 +4,6 @@
 from wsgiref.simple_server import make_server
 from datetime import date
 import os
-import os.path
 import simplejson as json
 import scrapers
 from cache import format_cache_file
