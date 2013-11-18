@@ -46,7 +46,7 @@ $(function () {
 	"use strict";
 	$('input.search').focus();
 
-	var data_url = "get_json.php";
+	var data_url = "http://gulle.se:40000";
 	var no_specials_found = false;
 
 	$.ajax({

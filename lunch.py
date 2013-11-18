@@ -8,7 +8,7 @@ import simplejson as json
 import scrapers
 from cache import format_cache_file
 
-PORT = 8000
+PORT = 40000
 
 def lunchsvall_app(environment, start_response):
 	if environment["PATH_INFO"] != "/":
@@ -35,8 +35,9 @@ def lunchsvall_app(environment, start_response):
 
 	status = "200 OK"
 	headers = [
-		("content-type", "application/json"),
-		("content-length", str(len(ret)))
+		("Content-Type", "application/json"),
+		("Content-Length", str(len(ret))),
+		("Access-Control-Allow-Origin", "*")
 	]
 
 	start_response(status, headers)
