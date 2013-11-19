@@ -3,6 +3,7 @@
 
 from wsgiref.simple_server import make_server
 from datetime import date
+from cgi import parse_qs
 import os
 import simplejson as json
 import scrapers
@@ -33,9 +34,13 @@ def lunchsvall_app(environment, start_response):
 			f.write(json.dumps(daily_specials))
 		ret = json.dumps(daily_specials)
 
+	params = parse_qs(environment["QUERY_STRING"])
+	if params.has_key("callback"):
+		ret = "{cb}({json});".format(cb=params["callback"][0], json=ret)
+
 	status = "200 OK"
 	headers = [
-		("Content-Type", "application/json"),
+		("Content-Type", "application/javascript" if params.has_key("callback") else "application/json"),
 		("Content-Length", str(len(ret))),
 		("Access-Control-Allow-Origin", "*")
 	]

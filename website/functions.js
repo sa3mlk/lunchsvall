@@ -46,32 +46,26 @@ $(function () {
 	"use strict";
 	$('input.search').focus();
 
-	var data_url = "http://gulle.se:40000";
+	var data_url = "http://gulle.se:40000/?callback=?";
 	var no_specials_found = false;
 
-	$.ajax({
-		async: false,
-		dataType: "json",
-		url: data_url,
-		type: "GET",
-		success: function (data) {
-			if (data.length === 0) {
-				$("#daily_specials thead").replaceWith("<tr><td><strong>Tji fick du, hittade inga luncher idag!</strong></td></tr>");
-				no_specials_found = true;
-			} else {
-				$.each(data, function (i, n) {
-					var daily_specials = "";
-					$.each(n.specials, function (j, m) {
-						daily_specials += m + "<br/>";
-					});
-					$("#daily_specials > tbody:last").append(
-						"<tr><td valign=\"top\">" +
-						"<strong><a href=\"" + n.dataurl + "\">" + n.name + "</a></strong>" +
-						"<br/><a href=\"" + n.mapurl + "\"><small>" + n.streetaddress + "</small></td>" +
-						"<td valign=\"top\">" + daily_specials + "</td></tr>"
-					);
+	$.getJSON(data_url).done(function(data) {
+		if (data.length === 0) {
+			$("#daily_specials thead").replaceWith("<tr><td><strong>Tji fick du, hittade inga luncher idag!</strong></td></tr>");
+			no_specials_found = true;
+		} else {
+			$.each(data, function (i, n) {
+				var daily_specials = "";
+				$.each(n.specials, function (j, m) {
+					daily_specials += m + "<br/>";
 				});
-			}
+				$("#daily_specials > tbody:last").append(
+					"<tr><td valign=\"top\">" +
+					"<strong><a href=\"" + n.dataurl + "\">" + n.name + "</a></strong>" +
+					"<br/><a href=\"" + n.mapurl + "\"><small>" + n.streetaddress + "</small></td>" +
+					"<td valign=\"top\">" + daily_specials + "</td></tr>"
+				);
+			});
 		}
 	});
 
