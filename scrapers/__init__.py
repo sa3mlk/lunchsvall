@@ -2,6 +2,7 @@ import bilbiten
 import bryners
 import delicerano
 import delinorr
+import estreet
 import gardshuset
 import opus
 import fernaeus
@@ -25,6 +26,7 @@ def get_daily_specials():
 	scrapers = [
 		bryners,
 		delicerano,
+		estreet,
 		delinorr,
 		opus,
 		gardshuset,
