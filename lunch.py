@@ -1,22 +1,17 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from wsgiref.simple_server import make_server
-from datetime import date
-from cgi import parse_qs
 import os
 import simplejson as json
 import scrapers
+from datetime import date
 from cache import format_cache_file
+from bottle import route, run, response, request
 
 PORT = 40000
 
-def lunchsvall_app(environment, start_response):
-	if environment["PATH_INFO"] != "/":
-		print "Ignoring:", environment["PATH_INFO"]
-		start_response("404 NOT FOUND", [("content-type", "text/plain")])
-		return [":-("]
-
+@route('/')
+def index():
 	cached_file, cache_dir = format_cache_file()
 
 	if not os.path.exists(cache_dir):
@@ -34,26 +29,16 @@ def lunchsvall_app(environment, start_response):
 			f.write(json.dumps(daily_specials))
 		ret = json.dumps(daily_specials)
 
-	params = parse_qs(environment["QUERY_STRING"])
-	if params.has_key("callback"):
-		ret = "{cb}({json});".format(cb=params["callback"][0], json=ret)
+	content_type = 'application/json'
+	if request.query.callback:
+		ret = "{cb}({json});".format(cb=request.query.callback, json=ret)
+		content_type = 'application/javascript'
 
-	status = "200 OK"
-	headers = [
-		("Content-Type", "application/javascript" if params.has_key("callback") else "application/json"),
-		("Content-Length", str(len(ret))),
-		("Access-Control-Allow-Origin", "*")
-	]
+	print request.environ.get('REMOTE_ADDR')
 
-	start_response(status, headers)
-	return [ret]
+	response.set_header('Access-Control-Allow-Origin', '*')
+	response.set_header('Access-Control-Allow-Headers', 'x-requested-with')
+	response.content_type = content_type + '; charset=UTF8'
+	return ret
 
-httpd = make_server("", PORT, lunchsvall_app)
-print "Serving on port %d..." % PORT
-
-try:
-	httpd.serve_forever()
-except KeyboardInterrupt:
-	print "Aborting..."
-
-
+run(server='cherrypy', host='0.0.0.0', port=PORT)
