@@ -5,9 +5,9 @@ from BeautifulSoup import BeautifulSoup, NavigableString
 from urllib2 import urlopen
 from datetime import date
 
-URL = "http://www.invitobar.se/sundsvall/index.php/lunch"
+URL = "http://sundsvall.invitobar.se/?page_id=1038"
 
-def get_daily_specials():
+def get_daily_specials(day=None):
 	page = urlopen(URL)
 	soup = BeautifulSoup(page)
 	page.close()
@@ -20,29 +20,25 @@ def get_daily_specials():
 		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=h7sTX8JwG1d8a10%252fW3RuwA%253d%253d&Vkid=2688685"
 	}
 
-	day = date.today().weekday()
+	day = date.today().weekday() if day is None else day
 
 	# Only Monday - Friday
 	if day > 4:
 		return daily_specials
 
-	day = [u"MÅNDAG:", u"TISDAG:", u"ONSDAG:", u"TORSDAG:", u"FREDAG:"][day]
-
-	day = soup.find("h3", text=day)
-	parent = day.findParent("tr")
-	td = parent.findChild("td", valign="top")
-
-	# Filter out the strings only
-	daily_specials["specials"] = [str(c) for c in
-		filter(lambda x: isinstance(x, NavigableString), td.contents)]
+	day = [u"MÅNDAG", u"TISDAG", u"ONSDAG", u"TORSDAG", u"FREDAG"][day]
+	day = soup.find("h2", text=day)
+	specials = filter(lambda tag: isinstance(tag, NavigableString), day.findNext("p").contents)
+	daily_specials["specials"] = [s.strip() for s in specials]
 
 	return daily_specials
 
 def main():
-	d = get_daily_specials()
-	print d["name"]
-	for c in d["specials"]:
-		print "  ", c
+	for day in range(5):
+		d = get_daily_specials(day)
+		print "Day {day} at {name}".format(day=day, name=d["name"])
+		for c in d["specials"]:
+			print "  ", c
 
 if __name__ == "__main__":
 	main()
