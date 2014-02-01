@@ -27,7 +27,7 @@ def get_daily_specials(day=None):
 				continue
 			start += 18
 			s = s[start:]
-		return json.loads(s[:s.find(";")])
+			return json.loads(s[:s.find(";")])
 
 	def transform_json(obj):
 		index = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
