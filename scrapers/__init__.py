@@ -9,7 +9,7 @@ import fernaeus
 import metropol
 import invito
 import jops
-import lunchguiden
+import lunchguide
 import mittgastronomi
 import norrlandskallaren
 import svartviksherrgard
@@ -22,8 +22,8 @@ import brandstation
 import sys, traceback
 import simplejson as json
 
-def get_daily_specials():
-	scrapers = [
+def get_scrapers():
+	return [
 		bryners,
 		delicerano,
 		estreet,
@@ -34,7 +34,7 @@ def get_daily_specials():
 		metropol,
 		invito,
 		jops,
-		lunchguiden,
+		lunchguide,
 		mittgastronomi,
 		norrlandskallaren,
 		svartviksherrgard,
@@ -46,8 +46,9 @@ def get_daily_specials():
 		brandstation,
 	]
 
+def get_daily_specials():
 	specials = []
-	for scraper in scrapers:
+	for scraper in get_scrapers():
 		# The result can either be a list of dicts or a simple dict
 		try:
 			result = scraper.get_daily_specials()
