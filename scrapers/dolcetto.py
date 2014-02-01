@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
-from BeautifulSoup import BeautifulSoup
+from BeautifulSoup import BeautifulSoup, NavigableString
 from urllib2 import urlopen
 from datetime import date
-import re
 
-URL = "http://www.dolcetto.nu/Veckolunchmeny.htm"
+URL = "http://www.dolcetto.nu/lunch"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
@@ -28,11 +27,13 @@ def get_daily_specials(day=None):
 	if day == 5 or day == 6:
 		return daily_specials
 
-	day = [u"M&aring;ndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
-
-	pattern = re.compile(day, re.IGNORECASE)
-	day = soup.find(lambda tag: tag.name == "p" and pattern.match(tag.text))
-	daily_specials["specials"] = [day.findNextSibling(lambda t: t.name == "p" and len(t.text)).text.strip()]
+	day = [u"måndag", u"tisdag", u"onsdag", u"torsdag", u"fredag"][day]
+	anchor = soup.find(lambda t: t.name == "h2" and t.text == "Lunchmeny")
+	menu = filter(lambda x: isinstance(x, NavigableString), anchor.findNextSibling("p"))
+	for i, v in enumerate(menu):
+		if day == v.lower():
+			daily_specials["specials"].append(menu[i+1])
+			break	
 
 	return daily_specials
 
