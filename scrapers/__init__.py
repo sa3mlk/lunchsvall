@@ -9,6 +9,7 @@ import fernaeus
 import metropol
 import invito
 import jops
+import lacodicomo
 import lunchguide
 import mittgastronomi
 import norrlandskallaren
@@ -34,6 +35,7 @@ def get_scrapers():
 		metropol,
 		invito,
 		jops,
+		lacodicomo,
 		lunchguide,
 		mittgastronomi,
 		norrlandskallaren,
