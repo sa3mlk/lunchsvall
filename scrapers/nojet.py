@@ -14,7 +14,7 @@ def get_daily_specials(day=None):
 		"specials": [],
 		"streetaddress": "Sundsvalls Sjukhus, Lasarettsvägen",
 		"dataurl": URL,
-		"mapurl": ""
+		"mapurl": "http://www.hitta.se/sundsvalls+sjukhus/sundsvall/LzggZC-vvm?vad=sundsvalls+sjukhus"
 	}
 
 	page = urlopen(URL)
