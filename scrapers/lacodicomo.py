@@ -35,8 +35,15 @@ def get_daily_specials(day=None):
 	if not anchor:
 		return daily_specials
 
-	ul = anchor.findNext("ul")
-	daily_specials["specials"] = [li.text for li in ul.findAll("li")]
+	while True:
+		anchor = anchor.next
+		if isinstance(anchor, Tag):
+			if anchor.name == "h2":
+				break 
+			else:
+				daily_specials["specials"].append(anchor.text.strip())
+		if len(daily_specials["specials"]) > 5:
+			break
 
 	return daily_specials
 
