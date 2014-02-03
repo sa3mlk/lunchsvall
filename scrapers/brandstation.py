@@ -39,10 +39,8 @@ def get_daily_specials(day=None):
 	if not os.path.isfile("brandstation.txt"):
 		return daily_specials
 
-	day_str = ""
 	try:
-		pdf_days = {0: "åndag", 1: "isdag", 2: "nsdag", 3: "orsdag", 4: "Fredag"}
-		day_str = pdf_days[day]
+		day = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag"][day]
 	except KeyError:
 		return daily_specials
 
@@ -51,19 +49,11 @@ def get_daily_specials(day=None):
 		line = line.replace("\xc2", "").replace("\xa0", "")
 		return line
 
-	collect = False
-	with file("brandstation.txt") as f:
-		day_len = len(day_str)
-		num_lines = 0
-		for line in f.readlines():
-			if collect:
-				if len(line) < 4 or num_lines == 3:
-					break
-				line = fix_whitespace(line)
-				daily_specials["specials"].append(line.strip())
-				num_lines += 1
-			if line[0:day_len] == day_str:
-				collect = True
+	lines = map(lambda x: x.strip(), open("brandstation.txt").readlines())
+	for i, l in enumerate(lines):
+		if l == day:
+			daily_specials["specials"] = lines[i+1:i+4]
+			break;
 
 	return daily_specials
 
@@ -79,3 +69,4 @@ def main():
 
 if __name__ == "__main__":
 	main()
+
