@@ -7,6 +7,7 @@ import gardshuset
 import opus
 import fernaeus
 import metropol
+import nojet
 import invito
 import jops
 import lunchguide
@@ -25,6 +26,7 @@ import simplejson as json
 def get_scrapers():
 	return [
 		bryners,
+		nojet,
 		delicerano,
 		estreet,
 		delinorr,
