@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-URL = "http://eurest.mashie.se/mashie/MashiePublic/MenuPresentation/Common/MenuSite.aspx?SiteId=09ef570c-b141-47d6-bbc6-a18200aff45f"
+URL = "http://eurest.mashie.se/mashie/MashiePublic/MenuPresentation/Common/MenuSite.aspx?SiteId=b3420841-fc1a-410b-8bbe-a2ff00b518e2"
 
 def get_daily_specials(day=None):
 	from BeautifulSoup import BeautifulSoup
