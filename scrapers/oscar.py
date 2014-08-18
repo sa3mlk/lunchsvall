@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString, Tag
+from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
 from datetime import date
-import re
 
 URL = "http://www.oscarmatsal.se/matsal/"
 
