@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString, Tag
+from BeautifulSoup import BeautifulSoup, NavigableString
 from urllib2 import urlopen
 from datetime import date
 import re
@@ -29,10 +29,22 @@ def get_daily_specials(day=None):
 		return daily_specials
 
 	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
-	anchor = soup.find("h3", text=day).parent
 
-	specials = anchor.findNextSibling("p").text
+	anchor = soup.find("h2", text=day).findParent("tr")
+	specials = anchor.findNextSibling("tr").text
 	daily_specials["specials"] = filter(len, re.split("\d. ", specials))
+
+	def split_lower_upper(s):
+		start = 0
+		for i, c in enumerate(s[:-1]):
+			if c.islower() and s[i+1].isupper():
+				stop = i+1
+				yield(s[start:stop])
+				start = stop
+		yield s[start:]
+
+	anchor = soup.find("h2", text="Veckans LCHF").findParent("tr")
+	daily_specials["specials"].extend(split_lower_upper(anchor.findNextSibling("tr").text))
 
 	return daily_specials
 
