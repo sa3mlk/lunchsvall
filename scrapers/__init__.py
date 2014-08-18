@@ -13,6 +13,7 @@ import jops
 import lacodicomo
 import lunchguide
 import mittgastronomi
+import oscar
 import norrlandskallaren
 import svartviksherrgard
 import skonsmon
@@ -28,6 +29,7 @@ def get_scrapers():
 	return [
 		bryners,
 		nojet,
+		oscar,
 		delicerano,
 		estreet,
 		delinorr,
