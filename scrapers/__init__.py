@@ -5,7 +5,6 @@ import delinorr
 import estreet
 import gardshuset
 import fernaeus
-import metropol
 import nojet
 import invito
 import jops
@@ -34,7 +33,6 @@ def get_scrapers():
 		delinorr,
 		gardshuset,
 		fernaeus,
-		metropol,
 		invito,
 		jops,
 		lacodicomo,
