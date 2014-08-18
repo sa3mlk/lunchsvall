@@ -4,6 +4,7 @@ import delicerano
 import delinorr
 import estreet
 import gardshuset
+import himlabadet
 import fernaeus
 import nojet
 import invito
@@ -32,6 +33,7 @@ def get_scrapers():
 		estreet,
 		delinorr,
 		gardshuset,
+		himlabadet,
 		fernaeus,
 		invito,
 		jops,
