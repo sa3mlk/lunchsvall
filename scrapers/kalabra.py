@@ -30,7 +30,7 @@ def get_daily_specials(day=None):
 	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
 
 	parent = soup.find("h2", text=day).parent
-	daily_specials["specials"] = parent.findNextSibling("p")
+	daily_specials["specials"].append(parent.findNextSibling("p").text)
 
 	return daily_specials
 
