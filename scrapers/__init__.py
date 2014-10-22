@@ -9,6 +9,7 @@ import fernaeus
 import nojet
 import invito
 import jops
+import kalabra
 import lacodicomo
 import lunchguide
 import mittgastronomi
@@ -37,6 +38,7 @@ def get_scrapers():
 		fernaeus,
 		invito,
 		jops,
+		kalabra,
 		lacodicomo,
 		lunchguide,
 		mittgastronomi,
