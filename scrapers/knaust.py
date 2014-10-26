@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
-from BeautifulSoup import BeautifulSoup, Tag
+from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
 from datetime import date
-import re
 
 URL = "https://www.elite.se/sv/hotell/sundsvall/hotel-knaust/lunchmeny/"
 
