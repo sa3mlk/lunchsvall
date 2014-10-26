@@ -10,6 +10,7 @@ import nojet
 import invito
 import jops
 import kalabra
+import knaust
 import lacodicomo
 import lunchguide
 import mittgastronomi
@@ -39,6 +40,7 @@ def get_scrapers():
 		invito,
 		jops,
 		kalabra,
+		knaust,
 		lacodicomo,
 		lunchguide,
 		mittgastronomi,
