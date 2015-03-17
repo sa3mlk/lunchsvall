@@ -32,9 +32,8 @@ def get_daily_specials(day=None):
 	return daily_specials
 
 def main():
-	d = get_daily_specials()
-	for c in d["specials"]:
-		print c
+	import test
+	test.run(get_daily_specials)
 
 if __name__ == "__main__":
 	main()
