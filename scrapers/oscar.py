@@ -31,20 +31,17 @@ def get_daily_specials(day=None):
 	anchor = soup.find(lambda tag: tag.name == "h1" and tag.text == day and tag["class"] == "lunch")
 	daily_specials["specials"] = [t.text for t in anchor.findNextSiblings("h3", limit=2)]
 
-	for w in ["pasta", "soppa", "sallad"]:
-		daily_specials["specials"].append(soup.find("span", text="Veckans {}:".format(w)).next.strip())
+	try:
+		for w in ["pasta", "soppa", "husman"]:
+			daily_specials["specials"].append(soup.find("span", text="Veckans {}:".format(w)).next.strip())
+	except AttributeError:
+		pass
 
 	return daily_specials
 
 def main():
-	def print_specials(day, d):
-		print " Day", day
-		for c in d["specials"]:
-			print "  ", c
-		print ""
-
-	for day in range(0, 5):
-		print_specials(day, get_daily_specials(day))
+	import test
+	test.run(get_daily_specials)
 
 if __name__ == "__main__":
 	main()
