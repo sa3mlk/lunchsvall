@@ -1,5 +1,7 @@
 # Simulate a visitor at 00:05 to get a fresh scrape result.
 5 0 * * * curl http://localhost:40000/
-# Refresh the cache at 08:00.
+# Refresh the cache at 08:00, 09:30 and 10:00
 0 8 * * * python /home/jonasg/code/lunchsvall/refresh.py && curl http://localhost:40000/
+30 9 * * * python /home/jonasg/code/lunchsvall/refresh.py && curl http://localhost:40000/
+0 10 * * * python /home/jonasg/code/lunchsvall/refresh.py && curl http://localhost:40000/
 
