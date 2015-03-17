@@ -30,19 +30,13 @@ def get_daily_specials(day=None):
 	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
 	anchor = soup.find(lambda tag: tag.name == "strong" and tag.text == day)
 	specials = filter(lambda t: isinstance(t, NavigableString), anchor.findParent().findNextSibling("p").contents)
-	daily_specials["specials"] = [s.replace("\n", "").strip() for s in specials]
+	daily_specials["specials"] = filter(len, [s.replace("\n", "").strip() for s in specials])
 
 	return daily_specials
 
 def main():
-	def print_specials(day, d):
-		print " Day", day
-		for c in d["specials"]:
-			print "  ", c
-		print ""
-
-	for day in range(0, 5):
-		print_specials(day, get_daily_specials(day))
+	import test
+	test.run(get_daily_specials)
 
 if __name__ == "__main__":
 	main()
