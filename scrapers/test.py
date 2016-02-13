@@ -18,10 +18,20 @@ def run(fn):
 	if len(argv) == 2:
 		# Print selected day
 		day = int(argv[1])
-		print_daily(fn(day), day)
+		dailys = fn(day)
+		if isinstance(dailys, list):
+			for d in dailys:
+				print_daily(d, day)
+		else:
+			print_daily(dailys, day)
 	else:
 		# Print all days
 		for day in range(7):
-			d = fn(day)
-			print_daily(d, day)
+			dailys = fn(day)
+			if isinstance(dailys, list):
+				for d in dailys:
+					print_daily(d, day)
+			else:
+				d = fn(day)
+				print_daily(d, day)
 
