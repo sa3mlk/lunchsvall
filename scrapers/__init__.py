@@ -8,7 +8,6 @@ import himlabadet
 import fernaeus
 import nojet
 import invito
-import jops
 import kalabra
 import knaust
 import lacodicomo
@@ -38,7 +37,6 @@ def get_scrapers():
 		himlabadet,
 		fernaeus,
 		invito,
-		jops,
 		kalabra,
 		knaust,
 		lacodicomo,
