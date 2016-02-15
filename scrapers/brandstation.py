@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
+# This scraper don't care about the day number / lazy me
+
 URL = "https://eurest.mashie.eu/mashie/MashiePublic/MenuPresentation/Common/MenuSite.aspx?SiteId=bb7288de-fffd-44de-944d-a30300d114d3"
 
 def get_daily_specials(day=None):
@@ -28,8 +30,6 @@ def get_daily_specials(day=None):
 	daily_specials["specials"] = map(lambda x: x.strip(),
 		[t.find("span", {"class": "Menu_DayMealName"}).text for t in div.findAll("table")]
 	)
-
-	return daily_specials
 
 	return daily_specials
 
