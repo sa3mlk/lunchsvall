@@ -1,24 +1,20 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString
+from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
 from datetime import date
-import re
 
-URL = "http://www.mittgastronomi.com/menyer/dagenslunch"
+URL = "http://mittgastronomi.nordicshops.com/category.html/"
 
 def get_daily_specials(day=None):
-	page = urlopen(URL)
-	soup = BeautifulSoup(page)
-	page.close()
 
 	daily_specials = {
 		"name": "Mitt Gastronomi",
 		"specials": [],
-		"streetaddress": "Russvägen 20, Sundsvall",
+		"streetaddress": "Storgatan 3, Sundsvall",
 		"dataurl": URL,
-		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=WQ2HuqDz9prdTLqQwJejvg%253d%253d"
+		"mapurl": "http://www.hitta.se/mitt+gastronomi/sundsvall/y~dRCXU1Gq?vad=Mitt+Gastronomi%2C+Storgatan+Sundsvall"
 	}
 
 	if day == None:
@@ -28,34 +24,22 @@ def get_daily_specials(day=None):
 	if day > 4:
 		return daily_specials
 
+	daily_specials["dataurl"] = daily_specials["dataurl"] + ["man", "tis", "ons", "tors", "fre"][day] + "dag"
+
+	page = urlopen(daily_specials["dataurl"])
+	soup = BeautifulSoup(page)
+	page.close()
 	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
 
-	anchor = soup.find("h2", text=day).findParent("tr")
-	specials = anchor.findNextSibling("tr").text
-	daily_specials["specials"] = filter(len, re.split("\d. ", specials))
-
-	def split_lower_upper(s):
-		start = 0
-		for i, c in enumerate(s[:-1]):
-			if c.islower() and s[i+1].isupper():
-				stop = i+1
-				yield(s[start:stop])
-				start = stop
-		yield s[start:]
-
-	anchor = soup.find("h2", text="Veckans LCHF").findParent("tr")
-	daily_specials["specials"].extend(split_lower_upper(anchor.findNextSibling("tr").text))
+	containers = soup.findAll("div", {"class": "product-small-textcontainer"})
+	for c in containers:
+		daily_specials["specials"].extend([" ".join(c.find("div", {"class": "name"}).text.split()[3:])])
 
 	return daily_specials
 
 def main():
-	def print_specials(day, d):
-		print " Day", day
-		for c in d["specials"]:
-			print "  ", c
-
-	for day in range(0, 5):
-		print_specials(day, get_daily_specials(day))
+	import test
+	test.run(get_daily_specials)
 
 if __name__ == "__main__":
 	main()
