@@ -29,23 +29,21 @@ def get_daily_specials(day=None):
 
 	div = soup.find("div", id="gg_lunch_widget-3")
 
-	def find_specials(match):
+	def find_specials(match, prefix=None):
 		day_title = div.find(lambda tag: tag.name == "h6" and tag.text == match)
-		specials = day_title.findNext("p").text
+		specials = prefix or ""
+		specials += day_title.findNext("p").text
 		return filter(len, specials.split("\r\n"))
 
-	patterns = [day, "Veckans soppa", "Veckans sallad"]
-	for p in patterns:
-		daily_specials["specials"] += find_specials(p)
+	patterns = [(day, None), ("Veckans Soppa", "Veckans soppa: "), ("Sallad", "Veckans sallad: ")]
+	for pattern, prefix in patterns:
+		daily_specials["specials"] += find_specials(pattern, prefix)
 
 	return daily_specials
 
 def main():
-	for i in range(5):
-		d = get_daily_specials(i)
-		print "Day {day} {name}".format(day=i, name=d["name"])
-		for c in d["specials"]:
-			print "  ", c
+	import test
+	test.run(get_daily_specials)
 
 if __name__ == "__main__":
 	main()
