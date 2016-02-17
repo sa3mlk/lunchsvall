@@ -27,11 +27,8 @@ def scrape_wretmans(url, day=None):
 	siblings = anchor.findNextSiblings("p", limit=2)
 	specials = []
 	for i, s in enumerate([s.text for s in siblings]):
-		s = re.sub("\n", " ", s)
-		if s[0:6] == "&nbsp;":
-			specials.append(s[6:])
-		else:
-			specials.append(s)
+		s = " ".join(s.splitlines())
+		specials.append(s)
 
 	return filter(len, specials)
 
