@@ -38,7 +38,8 @@ def scrape_wretmans(url, day=None):
 def get_daily_specials(day=None):
 	urls = [
 		"http://wretmans.se/Lunchmenyer/Lunchmeny.htm",
-		"http://www.wretmans.se/Lunchmenyer/Lunchmeny%20city.htm"
+		"http://www.wretmans.se/Lunchmenyer/Lunchmeny%20city.htm",
+		"http://www.wretmans.se/Lunchmenyer/Lunchmeny%20mokajen.htm"
 	]
 
 	daily_specials = [
@@ -55,6 +56,13 @@ def get_daily_specials(day=None):
 			"streetaddress": "Thulegatan 6, Sundsvall",
 			"dataurl": urls[1],
 			"mapurl": "http://www.hitta.se/wretmans+caf%C3%A9/sundsvall/hzWRPCw5X4"
+		},
+		{
+			"name": "Wretmans Mokajen",
+			"specials": scrape_wretmans(urls[2], day),
+			"streetaddress": "Kolvägen 9, Sundsvall",
+			"dataurl": urls[2],
+			"mapurl": "http://www.hitta.se/s%C3%B6k?vad=Kolv%C3%A4gen%209%2C%20Sundsvall"
 		}
 	]
 
