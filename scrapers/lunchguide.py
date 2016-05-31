@@ -27,7 +27,8 @@ def get_daily_specials(day=None):
 				continue
 			start += 18
 			s = s[start:]
-			return json.loads(s[:s.find(";\n")])
+			stop = s.find("}}];");
+			return json.loads(s[:stop+3])
 
 	def transform_json(obj):
 		index = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
@@ -42,7 +43,7 @@ def get_daily_specials(day=None):
 	return [transform_json(obj) for obj in get_json()]
 
 def main():
-	for day in range(7):
+	for day in range(5):
 		for d in get_daily_specials(day):
 			print d["name"].encode("UTF-8")
 			print "streetaddress:", d["streetaddress"]
