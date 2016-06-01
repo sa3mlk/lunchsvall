@@ -46,7 +46,7 @@ $(function () {
 	"use strict";
 	$('input.search').focus();
 
-	var data_url = "http://gulle.se/api/lunch/?callback=?";
+	var data_url = "//gulle.se/api/lunch/?callback=?";
 	var no_specials_found = false;
 
 	$.getJSON(data_url).done(function(data) {
