@@ -17,7 +17,7 @@ def get_daily_specials(day=None):
 		"specials": [],
 		"streetaddress": "Svartviksvägen 22, Kvissleby",
 		"dataurl": URL,
-		"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=pQwESnjorTiIAW4OJ3dOrg%253d%253d"
+		"mapurl=": "http://www.hitta.se/svartviks+herrgård+ab/kvissleby/zzTRP5U1Gq"
 	}
 
 	if day == None:
