@@ -29,7 +29,7 @@ def get_daily_specials(day=None):
 
 	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
 	anchor = soup.find(lambda tag: tag.name == "h1" and tag.text == day and tag["class"] == "lunch")
-	daily_specials["specials"] = [t.text for t in anchor.findNextSiblings("h3", limit=2)]
+	daily_specials["specials"] = filter(len, [t.text for t in anchor.findNextSiblings("h3", limit=2)])
 
 	try:
 		for w in ["pasta", "soppa", "husman"]:
