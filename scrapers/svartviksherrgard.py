@@ -4,9 +4,8 @@
 from BeautifulSoup import BeautifulSoup, NavigableString
 from urllib2 import urlopen
 from datetime import date
-import re
 
-URL = "http://www.svartviksherrgard.com/lunchbuffe/"
+URL = "http://svartviksherrgard.se/veckans-lunch/"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
@@ -24,36 +23,22 @@ def get_daily_specials(day=None):
 	if day == None:
 		day = date.today().weekday()
 
-	days = [u"M&aring;ndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag", u"L&ouml;rdag", u"S&ouml;ndag"]
+	if day > 4:
+		return daily_specials
+
+	days = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"]
 	day = days[day]
 
-	pattern = re.compile(day)
-	strong = soup.find("strong", text=day)
-	parent = strong.findParent("p")
-	siblings = parent.findNextSiblings("p", limit=10)
-	for sibling in siblings:
-		if sibling.text in days:
-			break
-		else:
-			s = sibling.text.strip()
-			s = s.replace("&nbsp;", "")
-			if len(s):
-				daily_specials["specials"].append(s)
+	span = soup.find("span", text=day)
+	parent = span.findParent("div", {"class": "wpb_text_column wpb_content_element "})
+	lunchdiv = parent.findNextSibling("div")
+	daily_specials["specials"] = [t.text for t in lunchdiv.findAll("p")]
 
 	return daily_specials
 
 def main():
-	def print_specials(day, d):
-		print " Day", day
-		for c in d["specials"]:
-			print "  ", c
-		print ""
-
-	d = get_daily_specials(0)
-	print d["name"]
-	print_specials(0, d)
-	for day in range(1, 7):
-		print_specials(day, get_daily_specials(day))
+	import test
+	test.run(get_daily_specials)
 
 if __name__ == "__main__":
 	main()
