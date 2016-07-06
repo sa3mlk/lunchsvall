@@ -1,6 +1,5 @@
 import bilbiten
 import bryners
-import delicerano
 import delinorr
 import estreet
 import gardshuset
@@ -30,7 +29,6 @@ def get_scrapers():
 		bryners,
 		nojet,
 		oscar,
-		delicerano,
 		estreet,
 		delinorr,
 		gardshuset,
