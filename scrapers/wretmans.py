@@ -35,8 +35,7 @@ def scrape_wretmans(url, day=None):
 def get_daily_specials(day=None):
 	urls = [
 		"http://wretmans.se/Lunchmenyer/Lunchmeny.htm",
-		"http://www.wretmans.se/Lunchmenyer/Lunchmeny%20city.htm",
-		"http://www.wretmans.se/Lunchmenyer/Lunchmeny%20mokajen.htm"
+		"http://www.wretmans.se/Lunchmenyer/Lunchmeny%20city.htm"
 	]
 
 	daily_specials = [
