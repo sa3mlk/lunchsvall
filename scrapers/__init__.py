@@ -12,6 +12,7 @@ import knaust
 import lacodicomo
 import lunchguide
 import mittgastronomi
+import mokajen
 import oscar
 import norrlandskallaren
 import svartviksherrgard
@@ -26,6 +27,7 @@ import simplejson as json
 
 def get_scrapers():
 	return [
+		mokajen,
 		bryners,
 		nojet,
 		oscar,

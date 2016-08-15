@@ -4,6 +4,7 @@
 from BeautifulSoup import BeautifulSoup, NavigableString
 from urllib2 import urlopen
 from datetime import date
+import re
 
 URL = "http://mittgastronomi.com/lunch-mokajen/"
 
@@ -15,7 +16,7 @@ def get_daily_specials(day=None):
 	daily_specials = {
 		"name": "Mokajen",
 		"specials": [],
-		"streetaddress": "Kolvägen 9, Sundsvall",
+		"streetaddress": "KolvÃ¤gen 9, Sundsvall",
 		"dataurl": URL,
 		"mapurl": "http://www.hitta.se/restaurang+mokajen/sundsvall/xWPjss5Xvm"
 	}
@@ -26,14 +27,14 @@ def get_daily_specials(day=None):
 	if day > 4:
 		return daily_specials
 
-	days = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"]
-	day = days[day]
+	day = [u"MÃ…NDAG", u"TISDAG", u"ONSDAG", u"TORSDAG", u"FREDAG"][day]
+	day_td = soup.find("td", text=day)
 
-	span = soup.find("span", text=day)
-	parent = span.findParent("div", {"class": "wpb_text_column wpb_content_element "})
-	lunchdiv = parent.findNextSibling("div")
-
-	daily_specials["specials"] = [t.text for t in lunchdiv.findAll("p")]
+	table = day_td.findParent("table")
+	tbody = table.find("tbody")
+	specials = filter(lambda t: isinstance(t, NavigableString), tbody.findAll("tr")[1].td.contents)
+	for s in specials:
+		daily_specials["specials"].append(re.sub(r'\([^)]*\)', '\n', s).strip())
 
 	return daily_specials
 
