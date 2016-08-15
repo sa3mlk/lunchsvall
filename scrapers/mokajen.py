@@ -32,6 +32,7 @@ def get_daily_specials(day=None):
 	span = soup.find("span", text=day)
 	parent = span.findParent("div", {"class": "wpb_text_column wpb_content_element "})
 	lunchdiv = parent.findNextSibling("div")
+
 	daily_specials["specials"] = [t.text for t in lunchdiv.findAll("p")]
 
 	return daily_specials
