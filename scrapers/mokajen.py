@@ -32,9 +32,13 @@ def get_daily_specials(day=None):
 
 	table = day_td.findParent("table")
 	tbody = table.find("tbody")
-	specials = filter(lambda t: isinstance(t, NavigableString), tbody.findAll("tr")[1].td.contents)
+	raw_data = filter(lambda t: isinstance(t, NavigableString), tbody.findAll("tr")[1].td.contents)
+	specials = []
+	for s in raw_data:
+		specials.append(re.sub(r'\([^)]*\)', '\n', s).strip())
+
 	for s in specials:
-		daily_specials["specials"].append(re.sub(r'\([^)]*\)', '\n', s).strip())
+		daily_specials["specials"].extend(s.split("\n"))
 
 	return daily_specials
 
