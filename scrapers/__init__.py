@@ -17,6 +17,7 @@ import oscar
 import norrlandskallaren
 import svartviksherrgard
 import skonsmon
+import skonsbergs
 import dolcetto
 import max
 import wretmans
@@ -45,6 +46,7 @@ def get_scrapers():
 		norrlandskallaren,
 		svartviksherrgard,
 		skonsmon,
+		skonsbergs,
 		dolcetto,
 		max,
 		wretmans,
