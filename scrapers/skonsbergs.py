@@ -8,7 +8,7 @@ try:
 except ImportError:
 	import json
 
-URL = "http://www.gulle.se/skonsbergs/data/current.json"
+URL = "http://www.gulle.se/~jonasg/skonsbergs/data/current.json"
 MAPURL = "https://www.hitta.se/folkets+hus+skönsberg/sundsvall/i~xMjw---X"
 
 def get_daily_specials(day=None):

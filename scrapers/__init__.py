@@ -48,7 +48,6 @@ def get_scrapers():
 		norrlandskallaren,
 		svartviksherrgard,
 		skonsmon,
-		skonsbergs,
 		dolcetto,
 		max,
 		wretmans,
