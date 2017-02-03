@@ -33,9 +33,11 @@ def get_daily_specials(day=None):
 	p = filter(lambda t: t.text.find(wday) >= 0, div.findAll("p"))[0].text
 	index = p.find(wday)
 	if day < 4:
-		daily_specials["specials"] = [p[index:p.find(days[day+1])]]
+		daily_soup = p[index:p.find(days[day+1])]
+		daily_specials["specials"] = [daily_soup.replace(wday, "Dagens soppa")]
 	else:
-		daily_specials["specials"] = [p[index:]]
+		daily_soup = p[index:]
+		daily_specials["specials"] = [daily_soup.replace(wday, "Dagens soppa")]
 
 	return daily_specials
 
