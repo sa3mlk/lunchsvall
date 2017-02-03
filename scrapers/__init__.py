@@ -18,6 +18,7 @@ import norrlandskallaren
 import svartviksherrgard
 import skonsmon
 import skonsbergs
+import tantanci
 import dolcetto
 import max
 import wretmans
@@ -30,6 +31,7 @@ def get_scrapers():
 	return [
 		mokajen,
 		bryners,
+		tantanci,
 		nojet,
 		oscar,
 		estreet,
