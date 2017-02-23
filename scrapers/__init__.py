@@ -29,6 +29,7 @@ import simplejson as json
 
 def get_scrapers():
 	return [
+		skonsbergs,
 		mokajen,
 		bryners,
 		tantanci,

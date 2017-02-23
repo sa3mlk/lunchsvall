@@ -17,7 +17,7 @@ def get_daily_specials(day=None):
 	page.close()
 
 	daily_specials = {
-		"name": u"Skönsbergs Folkets Hus",
+		"name": u"Restaurang Bibliotequet",
 		"specials": [],
 		"streetaddress": "Medborgargatan 35, Sundsvall",
 		"dataurl": MAPURL,
