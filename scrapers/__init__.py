@@ -1,3 +1,4 @@
+import augustas
 import bilbiten
 import bryners
 import delinorr
@@ -31,6 +32,7 @@ def get_scrapers():
 	return [
 		skonsbergs,
 		mokajen,
+		augustas,
 		bryners,
 		tantanci,
 		nojet,
