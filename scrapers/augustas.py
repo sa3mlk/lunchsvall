@@ -32,12 +32,23 @@ def get_daily_specials(day=None):
 
 	def findSpecial(name):
 		def findNextString(tag):
-			return tag.replace("&nbsp;", "").strip() if isinstance(tag, NavigableString) and len(tag) > 1 else findNextString(tag.next)
+			return tag.replace("&nbsp;", "").strip() if isinstance(tag, NavigableString) and len(tag) >= 0 else findNextString(tag.next)
 		strong = soup.find("strong", text=name)
 		return findNextString(strong.next)
 
-	specials = [("Dagens", wday), ("Fisk", "Veckans Fisk &nbsp;&nbsp;&nbsp;&nbsp;"), ("Gryta", "Veckans gryta"), ("Vegetarisk", "Veckans vegetariska"), ("Sallad", "Veckans sallad &nbsp;&nbsp;&nbsp;&nbsp;")]
-	daily_specials["specials"] = [t + ": " + findSpecial(s) for t, s in specials]
+	specials = [
+		("Dagens", wday),
+		("Fisk", "Veckans Fisk"),
+		("Gryta", "Veckans gryta"),
+		("Vegetarisk", "Veckans vegetariska"),
+		("Sallad", "Veckans sallad")
+	]
+
+	for t, s in specials:
+		try:
+			daily_specials["specials"].append(t + ": " + findSpecial(s))
+		except AttributeError:
+			pass
 
 	return daily_specials
 

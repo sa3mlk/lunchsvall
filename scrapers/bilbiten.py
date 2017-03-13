@@ -5,7 +5,8 @@ from BeautifulSoup import BeautifulSoup
 from urllib2 import urlopen
 from datetime import date
 
-URL = "http://www.gidlund.dns2go.com/bilbiten/matsedel.asp"
+#URL = "http://www.gidlund.dns2go.com/bilbiten/matsedel.asp"
+URL = "http://www.bilbiten.eu/?page_id=50"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
@@ -27,18 +28,14 @@ def get_daily_specials(day=None):
 	if day == 5 or day == 6:
 		return daily_specials
 
-	table = soup.findAll("table", id="table1")[1:][day]
-	daily_specials["specials"] = [tr.text.strip().replace("&nbsp;", "") for tr in table.findAll("tr")]
+	text = soup.find("text", id=["man", "tis", "ons", "tor", "fre"][day])
+	daily_specials["specials"] = text.renderContents().split("<br />")
 
 	return daily_specials
 
 def main():
-	for day in range(5):
-		d = get_daily_specials(day)
-		print "%s Day %d" % (d["name"], day)
-		for c in d["specials"]:
-			print "  ", c
+	import test
+	test.run(get_daily_specials)
 
 if __name__ == "__main__":
 	main()
-
