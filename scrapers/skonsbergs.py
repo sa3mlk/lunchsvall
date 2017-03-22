@@ -20,7 +20,7 @@ def get_daily_specials(day=None):
 		"name": u"Restaurang Bibliotequet",
 		"specials": [],
 		"streetaddress": "Medborgargatan 35, Sundsvall",
-		"dataurl": MAPURL,
+		"dataurl": "http://eqhouse.se",
 		"mapurl": MAPURL
 	}
 
