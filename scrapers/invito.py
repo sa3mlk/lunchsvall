@@ -5,7 +5,7 @@ from BeautifulSoup import BeautifulSoup, NavigableString
 from urllib2 import urlopen
 from datetime import date
 
-URL = "http://sundsvall.invitobar.se/?page_id=1038"
+URL = "http://sundsvall.invitobar.se/mat/#section-invito-dryck"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
@@ -26,19 +26,16 @@ def get_daily_specials(day=None):
 	if day > 4:
 		return daily_specials
 
-	day = [u"MÅNDAG", u"TISDAG", u"ONSDAG", u"TORSDAG", u"FREDAG"][day]
-	day = soup.find("h2", text=day)
-	specials = filter(lambda tag: isinstance(tag, NavigableString), day.findNext("p").contents)
-	daily_specials["specials"] = [s.strip() for s in specials]
+	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
+	anchor = soup.find("div", {"id": "meny-objekt-veckans-lunch"})
+	d = anchor.find("p", text=day).findParent("li")
+	daily_specials["specials"] = filter(lambda x: len(x) > 6, [t.text for t in d.findAll("p")[1:]])
 
 	return daily_specials
 
 def main():
-	for day in range(5):
-		d = get_daily_specials(day)
-		print "Day {day} at {name}".format(day=day, name=d["name"])
-		for c in d["specials"]:
-			print "  ", c
+	import test
+	test.run(get_daily_specials)
 
 if __name__ == "__main__":
 	main()
