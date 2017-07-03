@@ -7,6 +7,7 @@ import gardshuset
 import himlabadet
 import fernaeus
 import nojet
+import opus
 import invito
 import kalabra
 import knaust
@@ -31,10 +32,11 @@ import simplejson as json
 def get_scrapers():
 	return [
 		skonsbergs,
-		mokajen,
+		opus,
 		invito,
 		augustas,
 		bryners,
+		mokajen,
 		tantanci,
 		nojet,
 		oscar,
