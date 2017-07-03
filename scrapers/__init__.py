@@ -32,6 +32,7 @@ def get_scrapers():
 	return [
 		skonsbergs,
 		mokajen,
+		invito,
 		augustas,
 		bryners,
 		tantanci,
@@ -42,7 +43,6 @@ def get_scrapers():
 		gardshuset,
 		himlabadet,
 		fernaeus,
-		invito,
 		kalabra,
 		knaust,
 		lacodicomo,
