@@ -6,8 +6,6 @@ URL = "http://eurest.mashie.eu/public/menu/restaurang+n%C3%B6jet/60f56fd6"
 def get_daily_specials(day=None):
 	from BeautifulSoup import BeautifulSoup
 	from urllib2 import urlopen
-	from datetime import date
-	import re
 
 	daily_specials = {
 		"name": "Restaurang Nöjet",
@@ -21,7 +19,6 @@ def get_daily_specials(day=None):
 	soup = BeautifulSoup(page)
 	page.close()
 
-	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag", u"Lördag", u"Söndag"][day]
 	div = soup.find("div", {"class": "row day-current "})
 	for t in  div.findNextSiblings():
 		daily_specials["specials"].append(t.find("section", {"class": "day-alternative"}).find("span").text)
