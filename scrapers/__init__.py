@@ -3,6 +3,7 @@ import bilbiten
 import bryners
 import delinorr
 import estreet
+import traktoren
 import gardshuset
 import himlabadet
 import fernaeus
@@ -41,6 +42,7 @@ def get_scrapers():
 		nojet,
 		oscar,
 		estreet,
+		traktoren,
 		delinorr,
 		gardshuset,
 		himlabadet,
