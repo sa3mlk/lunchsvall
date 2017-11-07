@@ -34,16 +34,18 @@ def get_daily_specials(day=None):
 	index = p.find(wday)
 	if day < 4:
 		daily_soup = p[index:p.find(days[day+1])]
-		daily_specials["specials"] = [daily_soup.replace(wday, "Dagens soppa")]
+		daily_specials["specials"] = [daily_soup.replace(wday, "Dagens soppa").strip()]
 	else:
 		daily_soup = p[index:]
-		daily_specials["specials"] = [daily_soup.replace(wday, "Dagens soppa")]
+		daily_specials["specials"] = [daily_soup.replace(wday, "Dagens soppa").strip()]
 
 	return daily_specials
 
 def main():
-	import test
-	test.run(get_daily_specials)
+	import simplejson as json
+	print get_daily_specials(1)["specials"][0].encode("utf8")
+	#import test
+	#test.run(get_daily_specials)
 
 if __name__ == "__main__":
 	main()
