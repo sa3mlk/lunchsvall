@@ -4,9 +4,8 @@
 from BeautifulSoup import BeautifulSoup, Tag
 from urllib2 import urlopen
 from datetime import date
-import re
 
-URL = "http://www.fernaeusgastronomiska.nu/menyer/veckans-lunch.aspx"
+URL = "http://www.fernaeusgastronomiska.nu/"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
@@ -28,20 +27,14 @@ def get_daily_specials(day=None):
 	if day == 5 or day == 6:
 		return daily_specials
 
-	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
-
-	parent = soup.find("h2", text=day).parent
-	lis = parent.findNextSibling("ul").findAll("li", limit=3)
-	daily_specials["specials"] = [t.text[2:] for t in lis]
+	weekday = soup.findAll("div", {"class": "col weekday bummer"})[day]
+	daily_specials["specials"] = [t.text.strip() for t in weekday.findAll("p")]
 
 	return daily_specials
 
 def main():
-	for day in range(5):
-		d = get_daily_specials(day)
-		print "%s Day %d" % (d["name"], day)
-		for c in d["specials"]:
-			print "  ", c
+	import test
+	test.run(get_daily_specials)
 
 if __name__ == "__main__":
 	main()
