@@ -76,7 +76,11 @@ try {
 	foreach ($data as $restaurant) {
 		$tmpRestaurant = null;
 
-		if (isset($_GET['filter_specials']) && strlen($_GET['filter_specials']) > 0) {
+		if (isset($_GET['filter_specials']) && $_GET['filter_specials'] == 'huhtalo' && $restaurant['name'] == 'Spisa hos Liza') {
+			$DISHES_COUNT = 100;
+			$tmpRestaurant = $restaurant;
+
+		} else if (isset($_GET['filter_specials']) && strlen($_GET['filter_specials']) > 0) {
 			$tmpSpecials = [];
 			foreach ($restaurant['specials'] as $special) {
 				if (stripos(html_entity_decode($special), rawurldecode($_GET['filter_specials'])) !== false) {
