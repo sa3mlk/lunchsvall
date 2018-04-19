@@ -4,6 +4,7 @@
 from BeautifulSoup import BeautifulSoup, Tag
 from urllib2 import urlopen
 from datetime import date
+import re
 
 URL = "http://www.fernaeusgastronomiska.nu/"
 
@@ -27,7 +28,7 @@ def get_daily_specials(day=None):
 	if day == 5 or day == 6:
 		return daily_specials
 
-	weekday = soup.findAll("div", {"class": "col weekday bummer"})[day]
+	weekday = soup.findAll("div", {"class": re.compile("weekday")})[day]
 	daily_specials["specials"] = [t.text.strip() for t in weekday.findAll("p")]
 
 	return daily_specials
