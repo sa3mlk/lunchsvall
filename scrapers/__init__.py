@@ -20,7 +20,6 @@ import oscar
 import norrlandskallaren
 import svartviksherrgard
 import skonsmon
-import skonsbergs
 import tantanci
 import dolcetto
 import max
@@ -32,7 +31,6 @@ import simplejson as json
 
 def get_scrapers():
 	return [
-		skonsbergs,
 		opus,
 		invito,
 		augustas,
