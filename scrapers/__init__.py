@@ -8,6 +8,7 @@ import gardshuset
 import himlabadet
 import fernaeus
 import nojet
+import oasen
 import opus
 import invito
 import kalabra
@@ -31,6 +32,7 @@ import simplejson as json
 
 def get_scrapers():
 	return [
+		oasen,
 		opus,
 		invito,
 		augustas,

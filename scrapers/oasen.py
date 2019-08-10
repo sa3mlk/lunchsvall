@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-URL = "https://eurest.mashie.com/public/menu/restaurang+n%C3%B6jet/60f56fd6?country=se"
+URL = "https://eurest.mashie.com/public/menu/restaurang+%c3%a5kroken/oasen?country=se"
 
 def get_daily_specials(day=None):
 	from BeautifulSoup import BeautifulSoup
@@ -9,11 +9,11 @@ def get_daily_specials(day=None):
 	import ssl
 
 	daily_specials = {
-		"name": "Restaurang Nöjet",
+		"name": "Restaurang Oasen",
 		"specials": [],
-		"streetaddress": "Sundsvalls Sjukhus, Lasarettsvägen",
+		"streetaddress": "Södra Järnvägsgatan 41, Sundsvall",
 		"dataurl": URL,
-		"mapurl": "http://www.hitta.se/sundsvalls+sjukhus/sundsvall/LzggZC-vvm?vad=sundsvalls+sjukhus"
+		"mapurl": "https://www.hitta.se/v%C3%A4sternorrlands+l%C3%A4n/sundsvall/s%C3%B6dra+j%C3%A4rnv%C3%A4gsgatan+41/omr%C3%A5de/62.387966479770704:17.296699352772933"
 	}
 
 	ctx = ssl.create_default_context()
