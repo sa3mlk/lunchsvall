@@ -10,7 +10,7 @@ def get_daily_specials(day=None):
 		{
 			"name": "Bryners Kök",
 			"specials": [],
-			"streetaddress": "Kyrkogatan 24, Sundsvall",
+			"streetaddress": "Rådhusgatan 22, Sundsvall",
 			"dataurl": "http://bryners.se/bryners.se.html",
 			"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=ims%2bc70lKiXCPdGPetps6w%253d%253d"
 		},
@@ -34,7 +34,10 @@ def get_daily_specials(day=None):
 
 		try:
 			anchor = soup.find(lambda tag: tag.name == "span" and tag.text[0:len(day)] == day)
-			d["specials"] = [li.text for li in anchor.parent.findNextSibling("ul")] if anchor else []
+			if anchor:
+				ul = anchor.parent.findNextSibling("ul")
+				if ul:
+					d["specials"] = [li.text for li in ul.findAll("li")]
 		except IndexError:
 			pass
 

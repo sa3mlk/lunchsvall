@@ -26,13 +26,17 @@ def get_daily_specials(day=None):
 	if day > 4:
 		return daily_specials
 
-	days = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"]
+	days = [u"MÅNDAG", u"TISDAG", u"ONSDAG", u"TORSDAG", u"FREDAG"]
 	day = days[day]
 
-	span = soup.find("span", text=day)
-	parent = span.findParent("div", {"class": "wpb_text_column wpb_content_element "})
-	lunchdiv = parent.findNextSibling("div")
-	daily_specials["specials"] = [t.text for t in lunchdiv.findAll("p")]
+	parent = soup.find("div", {"class": "wpb_text_column wpb_content_element  vc_custom_1565590304396"})
+	p = parent.find("p", text=day)
+
+	for i in range(2):
+		p = p.findNext("p")
+		if p.text in days:
+			continue
+		daily_specials["specials"].append(p.text.lower().capitalize())
 
 	return daily_specials
 
