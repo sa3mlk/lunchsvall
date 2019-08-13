@@ -31,16 +31,6 @@ def get_daily_specials(day=None):
 	day_title = div.find(lambda tag: tag.name == "h6" and tag.text == day)
 	daily_specials["specials"] = filter(len, day_title.findNext("p").text.split("-"))
 
-	#def find_specials(match, prefix=None):
-	#	day_title = div.find(lambda tag: tag.name == "h6" and tag.text == match)
-	#	specials = prefix or ""
-	#	specials += day_title.findNext("p").text
-	#	return filter(len, specials.split("\r\n"))
-
-	#patterns = [(day, None), ("Veckans Soppa", "Veckans soppa: "), ("Sallad", "Veckans sallad: ")]
-	#for pattern, prefix in patterns:
-	#	daily_specials["specials"] += find_specials(pattern, prefix)
-
 	return daily_specials
 
 def main():
