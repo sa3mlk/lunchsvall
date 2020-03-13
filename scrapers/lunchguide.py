@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env pyURLthon
 # -*- encoding: utf-8 -*-
 
 from BeautifulSoup import BeautifulSoup
@@ -6,7 +6,7 @@ from urllib2 import urlopen
 from datetime import date
 import simplejson as json
 
-URL = "http://lunchguide.nu/sundsvall"
+URL = "http://lunchguide.nu/?page=sundsvall"
 
 def get_daily_specials(day=None):
 	if day == None:
