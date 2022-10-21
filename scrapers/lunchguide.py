@@ -1,8 +1,8 @@
 #!/usr/bin/env pyURLthon
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup
-from urllib2 import urlopen
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
 from datetime import date
 import simplejson as json
 
@@ -34,7 +34,7 @@ def get_daily_specials(day=None):
 		index = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
 		return {
 			"name": obj["name"],
-			"specials": filter(len, obj["food"][index].replace("<p>", "",).split("</p>")),
+			"specials": list(filter(len, obj["food"][index].replace("<p>", "",).split("</p>"))),
 			"streetaddress": obj["city"],
 			"dataurl": "http://lunchguide.nu/{id}".format(**obj),
 			"mapurl": "http://maps.google.com/maps?z=17&t=m&q=loc:{lat}+{long}".format(**obj)
@@ -45,12 +45,12 @@ def get_daily_specials(day=None):
 def main():
 	for day in range(5):
 		for d in get_daily_specials(day):
-			print d["name"].encode("UTF-8")
-			print "streetaddress:", d["streetaddress"]
-			print "mapurl:", d["mapurl"]
-			print "dataurl:", d["dataurl"]
+			print(d["name"].encode("UTF-8"))
+			print("streetaddress:", d["streetaddress"])
+			print("mapurl:", d["mapurl"])
+			print("dataurl:", d["dataurl"])
 			for c in d["specials"]:
-				print "  ", c.encode("UTF-8")
+				print("  ", c.encode("UTF-8"))
 
 if __name__ == "__main__":
 	main()

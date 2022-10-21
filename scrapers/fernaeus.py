@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
-from BeautifulSoup import BeautifulSoup, Tag
-from urllib2 import urlopen
+from bs4 import BeautifulSoup, Tag
+from urllib.request import urlopen
 from datetime import date
 import re
 

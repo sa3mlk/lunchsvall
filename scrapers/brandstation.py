@@ -6,8 +6,8 @@
 URL = "https://eurest.mashie.eu/mashie/MashiePublic/MenuPresentation/Common/MenuSite.aspx?SiteId=bb7288de-fffd-44de-944d-a30300d114d3"
 
 def get_daily_specials(day=None):
-	from BeautifulSoup import BeautifulSoup
-	from urllib2 import urlopen
+	from bs4 import BeautifulSoup
+	from urllib.request import urlopen
 	from datetime import date
 	import re
 

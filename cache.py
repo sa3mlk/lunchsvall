@@ -13,6 +13,6 @@ def format_cache_file():
 
 if __name__ == "__main__":
 	f, d = format_cache_file()
-	print "cache_file: {f}\ncache dir: {d}".format(f=f, d=d)
+	print("cache_file: {f}\ncache dir: {d}".format(f=f, d=d))
 	exit(0)
 

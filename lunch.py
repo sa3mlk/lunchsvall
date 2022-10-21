@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # -*- encoding: utf-8 -*-
 
 import os
@@ -19,13 +19,13 @@ def index():
 
 	ret = ""
 	if os.path.isfile(cached_file):
-		with file(cached_file) as f:
+		with open(cached_file) as f:
 			ret = f.read()
 	else:
-		print "Scraping new day"
+		print("Scraping new day")
 		daily_specials = scrapers.get_daily_specials()
-		with file(cached_file, "w") as f:
-			print "Saving cache as %s" % cached_file
+		with open(cached_file, "w") as f:
+			print("Saving cache as %s" % cached_file)
 			f.write(json.dumps(daily_specials))
 		ret = json.dumps(daily_specials)
 
@@ -34,11 +34,11 @@ def index():
 		ret = "{cb}({json});".format(cb=request.query.callback, json=ret)
 		content_type = 'application/javascript'
 
-	print request.environ.get('REMOTE_ADDR')
+	print(request.environ.get('REMOTE_ADDR'))
 
 	response.set_header('Access-Control-Allow-Origin', '*')
 	response.set_header('Access-Control-Allow-Headers', 'x-requested-with')
 	response.content_type = content_type + '; charset=UTF8'
 	return ret
 
-run(server='cherrypy', host='0.0.0.0', port=PORT)
+run(server='cheroot', host='0.0.0.0', port=PORT)

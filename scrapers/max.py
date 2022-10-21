@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, Tag
-from urllib2 import urlopen
+from bs4 import BeautifulSoup, Tag
+from urllib.request import urlopen
 from datetime import date
 import re
 
@@ -42,9 +42,9 @@ def get_daily_specials(day = None):
 def main():
 	for d in range(5):
 		data = get_daily_specials(d)
-		print "Day {d}".format(d=d)
+		print("Day {d}".format(d=d))
 		for c in data["specials"]:
-			print "  ", c
+			print("  ", c)
 
 if __name__ == "__main__":
 	main()
