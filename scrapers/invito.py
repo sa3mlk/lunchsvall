@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString
-from urllib2 import urlopen
+from bs4 import BeautifulSoup, NavigableString
+from urllib.request import urlopen
 from datetime import date
 
 URL = "http://sundsvall.invitobar.se/mat/#section-invito-dryck"
@@ -29,7 +29,7 @@ def get_daily_specials(day=None):
 	day = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"][day]
 	anchor = soup.find("div", {"id": "meny-objekt-veckans-lunch"})
 	d = anchor.find("p", text=day).findParent("li")
-	daily_specials["specials"] = filter(lambda x: len(x) > 6, [t.text for t in d.findAll("p")[1:]])
+	daily_specials["specials"] = list(filter(lambda x: len(x) > 6, [t.text for t in d.findAll("p")[1:]]))
 
 	return daily_specials
 

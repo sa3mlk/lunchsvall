@@ -9,7 +9,7 @@ $(JSMIN): website/functions.js
 	@curl $(CURLFLAGS) http://javascript-minifier.com/raw > $@
 
 validate: $(PYSRC)
-	@python -m py_compile $(PYSRC)
+	@pipenv run python3 -m py_compile $(PYSRC)
 
 clean:
 	@rm $(JSMIN)

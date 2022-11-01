@@ -4,8 +4,8 @@
 URL = "http://restaurangtraktoren.se/lunchmeny.html"
 
 def get_daily_specials(day=None):
-	from BeautifulSoup import BeautifulSoup
-	from urllib2 import urlopen
+	from bs4 import BeautifulSoup
+	from urllib.request import urlopen
 	from datetime import date
 
 	daily_specials = {
@@ -27,10 +27,9 @@ def get_daily_specials(day=None):
 		return daily_specials
 
 	days = [u"Måndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag", "Smaklig"]
-	day = soup.find("p", text=days[weekday])
+	day = soup.find(lambda t: t.name == 'p' and t.text.strip() == days[weekday])
 
-	parent = day.findParent("p")
-	siblings = parent.findNextSiblings("p")
+	siblings = day.findNextSiblings("p")
 	specials = []
 
 	for p in siblings:
@@ -38,7 +37,7 @@ def get_daily_specials(day=None):
 			break
 		specials.append(p.text)
 
-	daily_specials["specials"] = filter(lambda x: len(x) > 6, specials)
+	daily_specials["specials"] = list(filter(lambda x: len(x) > 6, specials))
 	return daily_specials
 
 def main():

@@ -6,12 +6,12 @@ def print_daily(d, day):
 		3: "Torsdag", 4: "Fredag", 5: "Lördag", 6: "Söndag"
 	}
 
-	print "%s: %s" % (d["name"], daynames[day])
+	print("%s: %s" % (d["name"], daynames[day]))
 	if len(d["specials"]) == 0:
-		print "   Ingen lunch"
+		print("   Ingen lunch")
 	else:
 		for c in d["specials"]:
-			print "  ", c
+			print("  ", c)
 
 def run(fn):
 	from sys import argv

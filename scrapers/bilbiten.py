@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
-from BeautifulSoup import BeautifulSoup
-from urllib2 import urlopen
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
 from datetime import date
 
 #URL = "http://www.gidlund.dns2go.com/bilbiten/matsedel.asp"

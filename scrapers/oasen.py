@@ -4,8 +4,8 @@
 URL = "https://eurest.mashie.com/public/menu/restaurang+%c3%a5kroken/oasen?country=se"
 
 def get_daily_specials(day=None):
-	from BeautifulSoup import BeautifulSoup
-	import urllib2
+	from bs4 import BeautifulSoup
+	import urllib.request
 	import ssl
 
 	daily_specials = {
@@ -20,7 +20,7 @@ def get_daily_specials(day=None):
 	ctx.check_hostname = False
 	ctx.verify_mode = ssl.CERT_NONE
 
-	page = urllib2.urlopen(URL, context=ctx)
+	page = urllib.request.urlopen(URL, context=ctx)
 	soup = BeautifulSoup(page)
 	page.close()
 

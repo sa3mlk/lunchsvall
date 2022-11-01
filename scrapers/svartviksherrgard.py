@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from BeautifulSoup import BeautifulSoup, NavigableString
-from urllib2 import urlopen
+from bs4 import BeautifulSoup, NavigableString
+from urllib.request import urlopen
 from datetime import date
 
 URL = "http://svartviksherrgard.se/veckans-lunch/"

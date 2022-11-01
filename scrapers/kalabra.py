@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
-from BeautifulSoup import BeautifulSoup, Tag
-from urllib2 import urlopen
+from bs4 import BeautifulSoup, Tag
+from urllib.request import urlopen
 from datetime import date
 
 URL = "http://www.kalabra.nu/"
@@ -37,9 +37,9 @@ def get_daily_specials(day=None):
 def main():
 	for day in range(5):
 		d = get_daily_specials(day)
-		print "%s Day %d" % (d["name"], day)
+		print("%s Day %d" % (d["name"], day))
 		for c in d["specials"]:
-			print "  ", c
+			print("  ", c)
 
 if __name__ == "__main__":
 	main()

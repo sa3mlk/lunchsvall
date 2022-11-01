@@ -4,8 +4,8 @@
 URL = "http://www.estreet.nu"
 
 def get_daily_specials(day=None):
-	from BeautifulSoup import BeautifulSoup
-	from urllib2 import urlopen
+	from bs4 import BeautifulSoup
+	from urllib.request import urlopen
 	from datetime import date
 
 	day = date.today().weekday() if day is None else day

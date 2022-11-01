@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
 
-from urllib2 import urlopen
+from urllib.request import urlopen
 import simplejson as json
 from datetime import date
 import re
@@ -36,9 +36,9 @@ def get_daily_specials(day=None):
 
 def main():
 	d = get_daily_specials()
-	print d["name"]
+	print(d["name"])
 	for c in d["specials"]:
-		print " ", c
+		print(" ", c)
 
 if __name__ == "__main__":
 	main()

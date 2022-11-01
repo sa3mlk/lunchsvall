@@ -1,16 +1,21 @@
 #!/usr/bin/env python
 # -*- encoding: utf8 -*-
+import re
 
-from BeautifulSoup import BeautifulSoup, NavigableString
-from urllib2 import urlopen
+from bs4 import BeautifulSoup, NavigableString
+from urllib.request import urlopen
 from datetime import date
 
 URL = "http://www.baltichotell.com/lunch.aspx"
 
 def get_daily_specials(day=None):
 	page = urlopen(URL)
-	soup = BeautifulSoup(page)
+	data = page.read()
 	page.close()
+	data = data.replace(b'\r\n', b' ')
+	data = data.replace(b'\n', b' ')
+	data = data.replace(b'\r', b' ')
+	soup = BeautifulSoup(data)
 
 	daily_specials = {
 		"name": "Augustas Kök",
@@ -27,14 +32,18 @@ def get_daily_specials(day=None):
 	if day == 5 or day == 6:
 		return daily_specials
 
-	days = [u"M&aring;ndag", u"Tisdag", u"Onsdag", u"Torsdag", u"Fredag"]
+	days = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag"]
 	wday = days[day]
 
+	for br in soup.find_all('br'):
+		br.replace_with('\n')
+
+	text = soup.text
+
 	def findSpecial(name):
-		def findNextString(tag):
-			return tag.replace("&nbsp;", "").strip() if isinstance(tag, NavigableString) and len(tag) >= 0 else findNextString(tag.next)
-		strong = soup.find("strong", text=name)
-		return findNextString(strong.next)
+		pattern = r"^\s*%s:?\s*\n(.*)$" % name
+		m = re.search(pattern, text, re.MULTILINE | re.IGNORECASE)
+		return re.sub(r'\s+', ' ', m.group(1))
 
 	specials = [
 		("Dagens", wday),
