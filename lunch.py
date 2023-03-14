@@ -1,8 +1,7 @@
-#!/usr/bin/python3
 # -*- encoding: utf-8 -*-
 
 import os
-import simplejson as json
+import json
 import scrapers
 from datetime import date
 from cache import format_cache_file

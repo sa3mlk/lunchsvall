@@ -20,7 +20,6 @@ import scrapers.mittgastronomi
 import scrapers.mokajen
 import scrapers.norrlandskallaren
 import scrapers.svartviksherrgard
-import scrapers.skonsmon
 import scrapers.tantanci
 import scrapers.dolcetto
 import scrapers.max
@@ -28,7 +27,7 @@ import scrapers.wretmans
 import scrapers.brandstation
 
 import sys, traceback
-import simplejson as json
+import json
 
 def get_scrapers():
 	return [
@@ -54,7 +53,6 @@ def get_scrapers():
 		scrapers.mittgastronomi,
 		scrapers.norrlandskallaren,
 		scrapers.svartviksherrgard,
-		scrapers.skonsmon,
 		scrapers.dolcetto,
 		scrapers.max,
 		scrapers.wretmans,

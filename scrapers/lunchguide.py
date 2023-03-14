@@ -4,7 +4,7 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from datetime import date
-import simplejson as json
+import json
 
 URL = "http://lunchguide.nu/?page=sundsvall"
 

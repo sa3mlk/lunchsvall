@@ -2,7 +2,7 @@
 # -*- encoding: utf8 -*-
 
 from urllib.request import urlopen
-import simplejson as json
+import json
 from datetime import date
 import re
 
