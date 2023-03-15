@@ -8,6 +8,7 @@ beautifulsoup4 = "*"
 pdfminer = "*"
 bottle = "*"
 cheroot = "*"
+urllib3 = "*"
 
 [dev-packages]
 
