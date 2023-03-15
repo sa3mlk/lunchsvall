@@ -21,6 +21,7 @@ import scrapers.tantanci
 import scrapers.max
 import scrapers.wretmans
 import scrapers.brandstation
+import scrapers.matochmat
 
 import sys, traceback
 import json
@@ -50,6 +51,7 @@ def get_scrapers():
 		scrapers.wretmans,
 		scrapers.bilbiten,
 		scrapers.brandstation,
+        scrapers.matochmat,
 	]
 
 def get_daily_specials():

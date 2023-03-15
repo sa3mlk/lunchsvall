@@ -1,6 +1,6 @@
 *.pyc
 *.swp
-*.sublime-workspace
+.vs
 brandstation.pdf
 brandstation.txt
 delinorr.pdf
