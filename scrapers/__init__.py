@@ -9,19 +9,15 @@ import scrapers.gardshuset
 import scrapers.himlabadet
 import scrapers.fernaeus
 import scrapers.nojet
-import scrapers.oasen
 import scrapers.opus
 import scrapers.invito
-import scrapers.kalabra
 import scrapers.knaust
-import scrapers.lacodicomo
 import scrapers.lunchguide
 import scrapers.mittgastronomi
 import scrapers.mokajen
 import scrapers.norrlandskallaren
 import scrapers.svartviksherrgard
 import scrapers.tantanci
-import scrapers.dolcetto
 import scrapers.max
 import scrapers.wretmans
 import scrapers.brandstation
@@ -32,7 +28,6 @@ import json
 def get_scrapers():
 	return [
 		scrapers.biteline,
-		scrapers.oasen,
 		scrapers.opus,
 		scrapers.invito,
 		scrapers.augustas,
@@ -46,14 +41,11 @@ def get_scrapers():
 		scrapers.gardshuset,
 		scrapers.himlabadet,
 		scrapers.fernaeus,
-		scrapers.kalabra,
 		scrapers.knaust,
-		scrapers.lacodicomo,
 		scrapers.lunchguide,
 		scrapers.mittgastronomi,
 		scrapers.norrlandskallaren,
 		scrapers.svartviksherrgard,
-		scrapers.dolcetto,
 		scrapers.max,
 		scrapers.wretmans,
 		scrapers.bilbiten,
