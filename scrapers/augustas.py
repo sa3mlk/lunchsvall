@@ -15,7 +15,7 @@ def get_daily_specials(day=None):
 	data = data.replace(b'\r\n', b' ')
 	data = data.replace(b'\n', b' ')
 	data = data.replace(b'\r', b' ')
-	soup = BeautifulSoup(data)
+	soup = BeautifulSoup(data, features="html.parser")
 
 	daily_specials = {
 		"name": "Augustas Kök",
