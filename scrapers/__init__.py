@@ -2,7 +2,6 @@ import scrapers.augustas
 import scrapers.biteline
 import scrapers.bilbiten
 import scrapers.bryners
-import scrapers.delinorr
 import scrapers.estreet
 import scrapers.traktoren
 import scrapers.gardshuset
@@ -38,7 +37,6 @@ def get_scrapers():
 		scrapers.tantanci,
 		scrapers.estreet,
 		scrapers.traktoren,
-		scrapers.delinorr,
 		scrapers.gardshuset,
 		scrapers.himlabadet,
 		scrapers.fernaeus,
