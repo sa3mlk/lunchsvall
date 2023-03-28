@@ -36,7 +36,7 @@ def get_daily_specials(day=None):
 			"name": obj["name"],
 			"specials": list(filter(len, obj["food"][index].replace("<p>", "",).split("</p>"))),
 			"streetaddress": obj["city"],
-			"dataurl": "http://lunchguide.nu/{id}".format(**obj),
+			"dataurl": "https://lunchguide.nu/?page={id}".format(**obj),
 			"mapurl": "http://maps.google.com/maps?z=17&t=m&q=loc:{lat}+{long}".format(**obj)
 		}
 
