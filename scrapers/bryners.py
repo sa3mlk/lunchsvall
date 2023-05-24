@@ -11,14 +11,14 @@ def get_daily_specials(day=None):
 			"name": "Bryners Kök",
 			"specials": [],
 			"streetaddress": "Rådhusgatan 22, Sundsvall",
-			"dataurl": "http://bryners.se/bryners.se.html",
+			"dataurl": "https://bryners.se/veckans-lunch-v-j/bryners-k-k.html",
 			"mapurl": "http://www.hitta.se/ViewDetailsPink.aspx?Vkiid=ims%2bc70lKiXCPdGPetps6w%253d%253d"
 		},
 		{
 			"name": "Bryners Bistro",
 			"specials": [],
 			"streetaddress": "Strandgatan 10, Sundsvall",
-			"dataurl": "http://bryners.se/bryners%20bistro.html",
+			"dataurl": "https://bryners.se/veckans-lunch-v-j/bryners-bistro.html",
 			"mapurl": "http://www.hitta.se/strand+restauran+och+bar/sundsvall/iyyL~xPP2Z?vad=adress%3AStrandgatan+10+Sundsvall"
 		}
 	]
